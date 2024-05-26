@@ -30,9 +30,9 @@
 <script src="https://unpkg.com/hmpl-js@0.0.4"></script>
 ```
 
-### Why hmpl-js?
+### Why hmpl?
 
-hmpl-js is easy to use and effective in practice. You can literally download reusable HTML from the server in just a couple of clicks, which will reduce a huge amount of code and also simplify the creation of the user interface. Also, this product is open-source under the [MIT license](https://github.com/hmpl-js/hmpl/blob/master/LICENSE), which allows it to be used for commercial purposes.
+hmpl is easy to use and effective in practice. You can literally download reusable HTML from the server in just a couple of clicks, which will reduce a huge amount of code and also simplify the creation of the user interface. Also, this product is open-source under the [MIT license](https://github.com/hmpl-js/hmpl/blob/master/LICENSE), which allows it to be used for commercial purposes.
 
 Here are a few small advantages that the module has:
 
@@ -44,9 +44,9 @@ Here are a few small advantages that the module has:
 
 And other advantages that will be visible when working with the module.
 
-### What is the difference between hmpl-js and htmx?
+### What is the difference between hmpl and htmx?
 
-The most important difference between hmpl-js and htmx is a slightly different project idea. The main goal of the project is to create a small template language over HTML that will allow you to work with the server. For this, the `template` syntax is used and for this purpose `createTemplate` was created, which serves as a small function into which you can pass a string, and at the output you will receive a ready-made `template` that you can work with. It is planned to create a separate file extension that will allow you to conveniently work with the server without `template` and other things. Therefore, in hmpl-js, events for `template` are optional, because this is intended for the future creation of something like index.php, where it is possible to mix regular HTML and server-side HTML.
+The most important difference between hmpl and htmx is a slightly different project idea. The main goal of the project is to create a small template language over HTML that will allow you to work with the server. For this, the `template` syntax is used and for this purpose `createTemplate` was created, which serves as a small function into which you can pass a string, and at the output you will receive a ready-made `template` that you can work with. It is planned to create a separate file extension that will allow you to conveniently work with the server without `template` and other things. Therefore, in hmpl, events for `template` are optional, because this is intended for the future creation of something like index.php, where it is possible to mix regular HTML and server-side HTML.
 
 ### About server-side rendering
 
