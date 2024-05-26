@@ -1,6 +1,6 @@
 ## About
 
-🌐 hmpl is a small library for working with server-side html. It is based on requests sent to the server via `fetch` and processed into ready-made HTML.
+🌐 hmpl is a small library for working with server-side html. It is based on requests sent to the server via `fetch` and processed into ready-made HTML. The word hmpl is a combination of the old name cample-html into one word. h-html, mpl - cample.
 
 ### Example
 
@@ -102,7 +102,7 @@ const elementObj = templateFn({
 
 ## Installation
 
-hmpl-js can be installed in several ways, which are described in this article. This tool is a simple javascript file that is connected in the usual way through a `script`, or using the `import` construct in an environment that supports this (webpack build, parcel build etc.). The first and easiest way is to install using a CDN.
+hmpl can be installed in several ways, which are described in this article. This tool is a simple javascript file that is connected in the usual way through a `script`, or using the `import` construct in an environment that supports this (webpack build, parcel build etc.). The first and easiest way is to install using a CDN.
 
 ### Package Manager
 
@@ -156,7 +156,7 @@ After installation using any convenient method described in [Installation](/?id=
 </div>
 ```
 
-Or, if the html method is not suitable, then in hmpl-js there is a `hmpl` object that provides a list of functions and methods that allow you to conveniently work with the server. Usage example:
+Or, if the html method is not suitable, then in hmpl there is a `hmpl` object that provides a list of functions and methods that allow you to conveniently work with the server. Usage example:
 
 ```javascript
 const templateFn = hmpl.createTemplate(
@@ -178,7 +178,7 @@ These will be the two main ways to interact with the server. In future versions,
 
 ## Template
 
-The main tag when working with hmpl-js is `template`. This tag allows you to post content almost anywhere. This makes it possible to work with a table and other 'specific' tags.
+The main tag when working with hmpl is `template`. This tag allows you to post content almost anywhere. This makes it possible to work with a table and other 'specific' tags.
 
 > When working with template, all `script` tags are removed by the module.
 
