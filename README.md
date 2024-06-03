@@ -372,6 +372,8 @@ result:
 };
 ```
 
+The `response` that is generated for the `element` will not contain a `template` tag, but an array with `ChildNode`'s, because these nodes have already been rendered into the DOM from the template string.
+
 Values are dynamically assigned to the object depending on the server response.
 
 > The status changes depending on the server response. But, the most important thing is that it is not assigned several times if it is the same. When working with `Proxy` or `Object.defineProperty` or `get` or something like that, this will not give the object unnecessary updates!
