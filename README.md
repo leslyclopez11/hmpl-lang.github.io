@@ -132,7 +132,7 @@ const templateFn = compile(
 
 const wrapper = document.getElementById("wrapper");
 
-const elementObj = templateFn([
+const elementObj1 = templateFn([
   {
     id: "1",
     options: {
@@ -143,6 +143,21 @@ const elementObj = templateFn([
     id: "2",
     options: {
       credentials: "omit",
+    },
+  },
+]);
+
+const elementObj2 = templateFn([
+  {
+    id: "1",
+    options: {
+      mode: "cors",
+    },
+  },
+  {
+    id: "2",
+    options: {
+      mode: "no-cors",
     },
   },
 ]);
@@ -215,6 +230,26 @@ const elementObj = templateFn();
 ```
 
 These will be the two main ways to interact with the server. In future versions, the functionality will be expanded, but the methods themselves will not change.
+
+## Webpack
+
+Module has its own loader for files with the `.hmpl` extension. You can include [hmpl-loader](https://www.npmjs.com/package/hmpl-loader) and use the template language syntax in separate files:
+
+### main.hmpl
+
+```hmpl
+<div><request src="/api/test"></request></div>
+```
+
+### main.js
+
+```javascript
+const templateFn = require("./main.hmpl");
+
+const elementObj = templateFn();
+```
+
+For the loader to work, it is better to use versions `0.0.2` or higher.
 
 ## Request
 
@@ -488,7 +523,7 @@ interface HMPLHeaders {
 }
 ```
 
-### HMPLIdentificationOptions (In future versions it will be exported)
+### HMPLIdentificationOptions
 
 Identification object of options, which is located in the array when passing it to the parameters of the template function
 
@@ -497,4 +532,21 @@ interface HMPLIdentificationOptions {
   options: HMPLRequestOptions;
   id: string;
 }
+```
+
+### HMPLCompile
+
+Creates a template function
+
+```typescript
+(template: string) => HMPLTemplateFunction;
+```
+
+### HMPLTemplateFunction
+
+The function returned in response to the `compile` function. Creates template instances.
+
+```typescript
+(options?: HMPLIdentificationOptions[] | HMPLRequestOptions) =>
+  HMPLTemplateObject;
 ```
