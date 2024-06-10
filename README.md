@@ -163,6 +163,10 @@ const elementObj2 = templateFn([
 ]);
 ```
 
+### GitHub repository with examples
+
+The [repository](https://github.com/hmpljs/examples) has a list of several example projects. There you can find examples with and without webpack, as well as a test local server.
+
 ## Installation
 
 hmpl can be installed in several ways, which are described in this article. This tool is a simple javascript file that is connected in the usual way through a `script`, or using the `import` construct in an environment that supports this (webpack build, parcel build etc.). The first and easiest way is to install using a CDN.
