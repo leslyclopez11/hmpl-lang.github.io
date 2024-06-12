@@ -8,7 +8,7 @@
 
 ```html
 <div id="wrapper"></div>
-<script src="https://unpkg.com/hmpl-js@1.0.5/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@1.0.6/dist/hmpl.min.js"></script>
 <script>
   const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
 
@@ -19,7 +19,7 @@
     get: (prop, value) => {
       if (prop === "response") {
         if (value) {
-          wrapper.appendChild(value.content.firstElementChild);
+          wrapper.appendChild(value.content);
         }
       }
     },
@@ -40,7 +40,7 @@
   <div>123</div>
 </div>
 
-<script src="https://unpkg.com/hmpl-js@1.0.5"></script>
+<script src="https://unpkg.com/hmpl-js@1.0.6"></script>
 ```
 
 ### Why hmpl?
@@ -185,13 +185,13 @@ Along the path node-modules/hmpl/dist you can find two files that contain a regu
 
 ### Manual download
 
-You can install the package by simply [downloading](https://unpkg.com/hmpl-js@1.0.5/dist/hmpl.min.js) it as a file and moving it to the project folder.
+You can install the package by simply [downloading](https://unpkg.com/hmpl-js@1.0.6/dist/hmpl.min.js) it as a file and moving it to the project folder.
 
 ```html
 <script src="./hmpl.min.js"></script>
 ```
 
-If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@1.0.5/dist/hmpl.js).
+If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@1.0.6/dist/hmpl.js).
 
 ```html
 <script src="./hmpl.js"></script>
@@ -205,8 +205,8 @@ This method involves connecting the file through a third-party resource, which p
 
 ```html
 <script
-  src="https://unpkg.com/hmpl-js@1.0.5/dist/hmpl.min.js"
-  integrity="sha384-kvq+IOsLER4i409Xlatp9D5LBvulXL9nz30v7zH7egcr/Zu+/9Md2CmXCck+PZ5I"
+  src="https://unpkg.com/hmpl-js@1.0.6/dist/hmpl.min.js"
+  integrity="sha384-oDZkxtU1saQ2U+nBHCKmuZY3gbY5CdJxoBh3+yoguYQM0uarYaN7be01asZfaoVD"
   crossorigin="anonymous"
 ></script>
 ```
@@ -218,7 +218,7 @@ This resource could be unpkg, skypack or other resources. The examples include u
 After installation using any convenient method described in [Installation](https://hmpljs.github.io/#/?id=installation), you can start working with the server in the following way:
 
 ```html
-<script src="https://unpkg.com/hmpl-js@1.0.5/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@1.0.6/dist/hmpl.min.js"></script>
 <script>
   const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
   const elementObj = templateFn();
@@ -362,6 +362,10 @@ const elementObj = templateFn({
   get: (prop, value) => {},
   referrerPolicy: "no-referrer",
   body: JSON.stringify(data),
+  signal: new AbortController().signal,
+  integrity: "...",
+  window: null,
+  refferer: "about:client",
 });
 ```
 
@@ -477,8 +481,12 @@ interface HMPLRequestOptions {
   cache?: RequestCache;
   redirect?: RequestRedirect;
   referrerPolicy?: ReferrerPolicy;
+  integrity?: string;
+  referrer?: string;
   get?: HMPLRequestGet;
   body?: BodyInit | null;
+  signal?: AbortSignal | null;
+  window?: any;
   credentials?: RequestCredentials;
   headers?: HMPLHeaders;
   timeout?: number;
