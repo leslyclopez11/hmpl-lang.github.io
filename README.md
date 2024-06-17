@@ -8,7 +8,7 @@
 
 ```html
 <div id="wrapper"></div>
-<script src="https://unpkg.com/hmpl-js@1.0.8/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@1.0.9/dist/hmpl.min.js"></script>
 <script>
   const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
 
@@ -40,7 +40,7 @@
   <div>123</div>
 </div>
 
-<script src="https://unpkg.com/hmpl-js@1.0.8"></script>
+<script src="https://unpkg.com/hmpl-js@1.0.9"></script>
 ```
 
 ### Why hmpl?
@@ -50,7 +50,7 @@ The main goal of this new template language is to simplify working with the serv
 ```php
 <div>
   <button id="getTitle" onclick="?">Get Title</button>
-  <h1><?php echo $title; ?></h1><!-- if(){?} -->
+  <h1><?php echo $title; ?></h1> <!-- if(){?} -->
 </div>
 ```
 
@@ -62,21 +62,15 @@ import { compile } from "hmpl-js";
 const templateFn = compile(
   `<div>
     <button class="getTitle">Get Title!</button>
-    <h1><request src="/api/test" after="click:.getHTML"></request></h1>
+    <h1><request src="/api/test" after="click:.getTitle"></request></h1>
   </div>`
 );
 
 const bodyEl = document.querySelector("body");
 
-const elementObj = templateFn({
-  get: (prop, value) => {
-    if (prop === "response") {
-      if (value) {
-        bodyEl.appendChild(value);
-      }
-    }
-  },
-});
+const obj = templateFn();
+
+bodyEl.appendChild(obj.response);
 ```
 
 Thus, despite the fact that this approach does not imply server-side rendering, it does simplify working with HTML and the server and makes it possible to make requests out of the box safely, as well as write less code than would be done through pure javascript
@@ -132,7 +126,7 @@ const templateFn = compile(
 
 const wrapper = document.getElementById("wrapper");
 
-const elementObj1 = templateFn([
+const obj1 = templateFn([
   {
     id: "1",
     options: {
@@ -147,7 +141,7 @@ const elementObj1 = templateFn([
   },
 ]);
 
-const elementObj2 = templateFn([
+const obj2 = templateFn([
   {
     id: "1",
     options: {
@@ -161,6 +155,9 @@ const elementObj2 = templateFn([
     },
   },
 ]);
+
+wrapper.appendChild(obj1.response);
+wrapper.appendChild(obj2.response);
 ```
 
 ### GitHub repository with examples
@@ -185,13 +182,13 @@ Along the path node-modules/hmpl/dist you can find two files that contain a regu
 
 ### Manual download
 
-You can install the package by simply [downloading](https://unpkg.com/hmpl-js@1.0.8/dist/hmpl.min.js) it as a file and moving it to the project folder.
+You can install the package by simply [downloading](https://unpkg.com/hmpl-js@1.0.9/dist/hmpl.min.js) it as a file and moving it to the project folder.
 
 ```html
 <script src="./hmpl.min.js"></script>
 ```
 
-If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@1.0.8/dist/hmpl.js).
+If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@1.0.9/dist/hmpl.js).
 
 ```html
 <script src="./hmpl.js"></script>
@@ -205,8 +202,8 @@ This method involves connecting the file through a third-party resource, which p
 
 ```html
 <script
-  src="https://unpkg.com/hmpl-js@1.0.8/dist/hmpl.min.js"
-  integrity="sha384-oDZkxtU1saQ2U+nBHCKmuZY3gbY5CdJxoBh3+yoguYQM0uarYaN7be01asZfaoVD"
+  src="https://unpkg.com/hmpl-js@1.0.9/dist/hmpl.min.js"
+  integrity="sha384-Y0yDCSHgW3MkxYcw48Rd/4O+zcn7/subEzh16BLAUkpJGeSPvV1ui1xU4HEhPm1N"
   crossorigin="anonymous"
 ></script>
 ```
@@ -218,7 +215,7 @@ This resource could be unpkg, skypack or other resources. The examples include u
 After installation using any convenient method described in [Installation](https://hmpljs.github.io/#/?id=installation), you can start working with the server in the following way:
 
 ```html
-<script src="https://unpkg.com/hmpl-js@1.0.8/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@1.0.9/dist/hmpl.min.js"></script>
 <script>
   const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
   const elementObj = templateFn();
