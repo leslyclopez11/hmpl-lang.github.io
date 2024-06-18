@@ -4,43 +4,36 @@
 
 ### Example
 
-<b>HTML before</b>
+### HTML before
 
 ```html
 <div id="wrapper"></div>
 <script src="https://unpkg.com/hmpl-js@1.0.9/dist/hmpl.min.js"></script>
 <script>
-  const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
+  const templateFn = hmpl.compile(
+    `<div><request src="/api/test"></request></div>`
+  );
 
   const wrapper = document.getElementById("wrapper");
 
-  const elementObj = templateFn({
-    credentials: "same-origin",
-    get: (prop, value) => {
-      if (prop === "response") {
-        if (value) {
-          wrapper.appendChild(value.content);
-        }
-      }
-    },
-  });
+  const obj = templateFn();
+
+  wrapper.appendChild(obj.response);
 </script>
 ```
 
-<b>Server route - /api/test</b>
+### Server route - /api/test
 
 ```html
-<div>123</div>
+<span>123</span>
 ```
 
-<b>HTML after</b>
+### HTML after
 
 ```html
 <div id="wrapper">
-  <div>123</div>
+  <div><span>123</span></div>
 </div>
-
-<script src="https://unpkg.com/hmpl-js@1.0.9"></script>
 ```
 
 ### Why hmpl?
