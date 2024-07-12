@@ -321,6 +321,14 @@ const templateFn = compile(`{${request}}`);
 
 This object is replaced with HTML that comes from the server using the `template` tag.
 
+Until the request is sent, there will be a comment in place of the request object that looks like this:
+
+```html
+<!--hmpl1-->
+```
+
+This comment is replaced with HTML that comes from the server.
+
 ### src
 
 This property specifies the url to which the request will be sent. Property `src` is required.
