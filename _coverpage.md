@@ -2,9 +2,6 @@
 
 > Template language for fetching HTML from API
 
-- Simple and lightweight
--
--
-
 [GitHub](https://github.com/hmpljs/hmpl)
+[Demo Sandbox](https://codesandbox.io/p/sandbox/basic-hmpl-example-dxlgfg)
 [Get Started](#getting-started)

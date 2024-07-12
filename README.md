@@ -1,4 +1,4 @@
-## About
+## Introduction
 
 🌐 hmpl is a small template language for fetching HTML from API. It is based on requests sent to the server via fetch and processed into ready-made HTML. The word hmpl is a combination of the old name cample-html into one word. h-html, mpl-cample.
 
