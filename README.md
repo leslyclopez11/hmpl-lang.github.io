@@ -128,10 +128,20 @@ const elementObj = templateFn({
 ```javascript
 import { compile } from "hmpl-js";
 
+const request2 = JSON.stringify({
+  src: "/api/test",
+  ref: "2",
+});
+
 const templateFn = compile(
   `<div>
-    <request src="/api/test" ref="1"></request>
-    <request src="/api/test" ref="2"></request>
+     { 
+       {
+         "src":"/api/test",
+         "ref":"1"
+       } 
+     }
+     {${request2}}
   </div>`
 );
 
@@ -228,7 +238,13 @@ After installation using any convenient method described in [Installation](https
 ```html
 <script src="https://unpkg.com/hmpl-js@2.0.0/dist/hmpl.min.js"></script>
 <script>
-  const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
+  const templateFn = compile(
+    `{ 
+       {
+         "src":"/api/test" 
+       } 
+     }`
+  );
   const elementObj = templateFn();
 </script>
 ```
@@ -237,7 +253,13 @@ Or, if you need to work with hmpl as a module, there is a list of imported funct
 
 ```javascript
 import { compile } from "hmpl-js";
-const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
+const templateFn = compile(
+  `{ 
+     {
+       "src":"/api/test" 
+     } 
+   }`
+);
 const elementObj = templateFn();
 ```
 
@@ -250,7 +272,13 @@ Module has its own loader for files with the `.hmpl` extension. You can include 
 ### main.hmpl
 
 ```hmpl
-<div><request src="/api/test"></request></div>
+<div>
+  {
+    {
+      "src":"/api/test"
+    }
+  }
+</div>
 ```
 
 ### main.js
@@ -265,29 +293,53 @@ For the loader to work, it is better to use versions `0.0.2` or higher.
 
 ## Request
 
-The main tag when working with hmpl is request. This tag is compiled into a "template" tag, which allows you to place the request anywhere on the page (in the table and in other "specific" tags)
+The main thing in hmpl syntax is string interpolation. In most frameworks, such as Cample and others, string interpolation occurs using double curly braces, but since it is not convenient to do three curly braces together with a request object, a single brace was chosen. The format in which string interpolation works is as follows - `{${request}}`.
 
-```html
-<request></request>
+> When working with request, all `script` tags are removed by the module.
+
+The main way to send a request to the server is through a request object. This object includes the properties described below in documentation.
+
+```hmpl
+{
+  {
+     "src":"/api/test"
+  }
+}
 ```
 
-> When working with `request`, all `script` tags are removed by the module.
+This object is parsed using `JSON.parse`, so for convenience you can use the `JSON.stringify` function by passing the object that needs to be inserted into the string:
 
-To work with a request, special attributes are defined that allow the code to access template markup.
+```javascript
+const request = JSON.stringify({
+  src: "/api/test",
+});
+
+const templateFn = compile(`{${request}}`);
+```
+
+This object is replaced with HTML that comes from the server using the `template` tag.
 
 ### src
 
-This attribute specifies the url to which the request will be sent.
+This property specifies the url to which the request will be sent. Property `src` is required.
 
-```html
-<request src="/api/test"></request>
-```
-
-```html
-<request src="http://localhost:5000/api/test"></request>
+```hmpl
+{
+  {
+     "src":"http://localhost:5000/api/test"
+  }
+}
 ```
 
 It is worth considering that if there is no hostname (protocol etc.) in the url, the hostname (protocol etc.) of the address from which the request is sent will be substituted.
+
+```hmpl
+{
+  {
+     "src":"/api/test"
+  }
+}
+```
 
 ### method
 
