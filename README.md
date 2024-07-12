@@ -487,7 +487,13 @@ The `id` value of each options identification object is unique. The value type i
 The function returns an object that depends on the template string to determine the number of properties. If there are 2 or more request objects in the template string, then the `requests` property is added, which has the value of an array of objects for each request object. Their properties are copied as if there was one request object in the template string.
 
 ```javascript
-const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
+const templateFn = hmpl.compile(
+  `{ 
+     {
+       "src":"/api/test" 
+     } 
+   }`
+);
 const elementObj = templateFn();
 ```
 
@@ -504,7 +510,18 @@ or
 
 ```javascript
 const templateFn = hmpl.compile(
-  `<div><request src="/api/test"></request><request src="/api/test"></request></div>`
+  `<div>
+   {
+     {
+       "src":"/api/test"
+     }
+   }
+   {
+     {
+       "src":"/api/test"
+     }
+   }
+</div>`
 );
 const elementObj = templateFn();
 ```
