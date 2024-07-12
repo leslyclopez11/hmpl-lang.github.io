@@ -343,20 +343,28 @@ It is worth considering that if there is no hostname (protocol etc.) in the url,
 
 ### method
 
-This attribute specifies the request method that is sent to the server. The default value is the `get` method.
+This property specifies the request method that is sent to the server. The default value is the `get` method.
 
-```html
-<request method="get"></request>
+```hmpl
+{
+  {
+     "method":"get"
+  }
+}
 ```
 
 The supported methods are `GET`, `POST`, `PUT`, `PATCH` or `DELETE`.
 
 ### after
 
-The after property specifies after which event the request will be sent to the server. The value of the property is the string of the following construction `${event}:${selectors}`, where event is the event after which the request will be sent. and selectors are the targets to which event handlers will be assigned
+The `after` property specifies after which event the request will be sent to the server. The value of the property is the string of the following construction `${event}:${selectors}`, where event is the event after which the request will be sent. and selectors are the targets to which event handlers will be assigned
 
-```html
-<request after="click:.target"></request>
+```hmpl
+{
+  {
+     "after":"click:.target"
+  }
+}
 ```
 
 > Selectors are not looked for in the `document`, but in the template string.
