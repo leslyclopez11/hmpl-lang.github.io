@@ -253,6 +253,7 @@ Or, if you need to work with hmpl as a module, there is a list of imported funct
 
 ```javascript
 import { compile } from "hmpl-js";
+
 const templateFn = compile(
   `{ 
      {
@@ -260,6 +261,7 @@ const templateFn = compile(
      } 
    }`
 );
+
 const elementObj = templateFn();
 ```
 
@@ -375,18 +377,32 @@ The HTML that comes from the server will change to a new one each time in the DO
 
 This property specifies the mode of sending requests to the server and replacing HTML in the real DOM of the template. Takes two values `one` and `all`. The first value makes it so that the request to the server will be sent once, and after that all event handlers that were assigned by `selectors` will be removed and the second value, by default, sends a request every time the event is triggered. At the same time, HTML also changes once and changes constantly.
 
-```html
-<request mode="one"></request>
+```hmpl
+{
+  {
+     "mode":"one"
+  }
+}
 ```
 
 ### ref
 
-The ref attribute refers to the current identity settings object that was specified in the array in the compile function.
+The `ref` property refers to the current identity settings object that was specified in the array in the compile function.
 
-```html
+```hmpl
 <div>
-  <request ref="1"></request>
-  <request ref="2"></request>
+  {
+    {
+      "src":"/api/test",
+      "ref":"1"
+    }
+  }
+  {
+    {
+      "src":"/api/test",
+      "ref":"2"
+    }
+  }
 </div>
 ```
 
@@ -397,7 +413,7 @@ const arr = [
 ];
 ```
 
-This link can be specified for several `request`'s at the same time. This can be compared to assigning a primary key in databases.
+This link can be specified for several request objects at the same time. This can be compared to assigning a primary key in databases.
 
 ## hmpl
 
@@ -407,11 +423,15 @@ This object does not need to be imported. It is assigned to the entire document,
 
 ### compile
 
-This function receives a string that contains a request with modular attributes.
+This function receives a string that contains a strin with hmpl syntax.
 
 ```javascript
 const templateFn = hmpl.compile(
-  `<request src="/api/test" method="get"></request>`
+  `{ 
+     {
+       "src":"/api/test" 
+     } 
+   }`
 );
 ```
 
@@ -464,7 +484,7 @@ const elementObj = templateFn([
 
 The `id` value of each options identification object is unique. The value type is `string`
 
-The function returns an object that depends on the template string to determine the number of properties. If there are 2 or more `request` tags in the template string, then the `requests` property is added, which has the value of an array of objects for each `request`. Their properties are copied as if there was one tag with `request` in the template string.
+The function returns an object that depends on the template string to determine the number of properties. If there are 2 or more request objects in the template string, then the `requests` property is added, which has the value of an array of objects for each request object. Their properties are copied as if there was one request object in the template string.
 
 ```javascript
 const templateFn = hmpl.compile(`<request src="/api/test"></request>`);
