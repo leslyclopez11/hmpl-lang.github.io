@@ -13,15 +13,37 @@
       rel="stylesheet"
       href="https://unpkg.com/docsify-themeable@0/dist/css/theme-simple.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v6.5.1/css/all.css"
+    />
     <style>
       :root {
         --theme-color: #0183ff;
+        --navbar-root-transition: all 0.2s ease-in-out;
       }
       .docsify-copy-code-button .error {
         display: none;
       }
       .docsify-copy-code-button .success {
         display: none;
+      }
+      .app-nav li:hover {
+        color: #0183ff !important;
+      }
+      .sidebar > h1 img {
+        width: 100px;
+      }
+      @media (max-width: 600px) {
+        .app-nav ul {
+          display: flex;
+        }
+        .app-nav a[title="Introduction"] {
+          display: none;
+        }
+        .app-nav li:nth-child(3) {
+          margin: 0 !important;
+        }
       }
     </style>
   </head>
@@ -31,6 +53,8 @@
       window.$docsify = {
         search: "auto",
         name: "hmpl",
+        loadNavbar: true,
+        logo: "/_media/logo.svg",
         search: ["/"],
         search: {
           maxAge: 86400000,
