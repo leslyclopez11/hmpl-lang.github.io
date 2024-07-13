@@ -1,4 +1,3 @@
 - [GitHub](https://github.com/hmpljs/hmpl)
 - [Examples](https://github.com/hmpljs/examples)
 - [Why hmpl?](#why-hmpl)
-- [![stars](https://img.shields.io/github/stars/hmpljs/hmpl?logo=github&style=for-the-badge&label=Stars&logoColor=FFF&labelColor=555555)](https://github.com/hmpljs/hmpl/stargazers)
