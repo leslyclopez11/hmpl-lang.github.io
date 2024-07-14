@@ -24,6 +24,13 @@
 
   const obj = templateFn();
 
+  /**
+   * obj = {
+   *  response: div,
+   *  status: 200
+   * }
+   */
+
   wrapper.appendChild(obj.response);
 </script>
 ```
@@ -111,7 +118,7 @@ const elementObj = templateFn({
 });
 ```
 
-Direct access to the node allows you to interact with the DOM via js without additional querySelector.
+Direct access to the node allows you to interact with the DOM via js without additional `querySelector`.
 
 ### About server-side rendering
 
