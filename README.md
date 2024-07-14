@@ -8,7 +8,7 @@
 
 ```html
 <div id="wrapper"></div>
-<script src="https://unpkg.com/hmpl-js@2.0.0/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@2.0.1/dist/hmpl.min.js"></script>
 <script>
   const templateFn = hmpl.compile(
     `<div>
@@ -242,13 +242,13 @@ Along the path node-modules/hmpl/dist you can find two files that contain a regu
 
 ### Manual download
 
-You can install the package by simply [downloading](https://unpkg.com/hmpl-js@2.0.0/dist/hmpl.min.js) it as a file and moving it to the project folder.
+You can install the package by simply [downloading](https://unpkg.com/hmpl-js@2.0.1/dist/hmpl.min.js) it as a file and moving it to the project folder.
 
 ```html
 <script src="./hmpl.min.js"></script>
 ```
 
-If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@2.0.0/dist/hmpl.js).
+If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@2.0.1/dist/hmpl.js).
 
 ```html
 <script src="./hmpl.js"></script>
@@ -262,8 +262,8 @@ This method involves connecting the file through a third-party resource, which p
 
 ```html
 <script
-  src="https://unpkg.com/hmpl-js@2.0.0/dist/hmpl.min.js"
-  integrity="sha384-RMAg0iL86fS8l7iNWZUtkhHwNr/gWEqEi32LszRjm2dYRV2r5Kur/aJmaw4es7Ae"
+  src="https://unpkg.com/hmpl-js@2.0.1/dist/hmpl.min.js"
+  integrity="sha384-vKTGdqC+0y/oC1CJ4oJgR5Asyv5FPvatFAv3AUv8ZZEmnCeMwnzrU6Nvp6G7kcq5"
   crossorigin="anonymous"
 ></script>
 ```
@@ -275,7 +275,7 @@ This resource could be unpkg, skypack or other resources. The examples include u
 After installation using any convenient method described in [Installation](https://hmpljs.github.io/#/?id=installation), you can start working with the server in the following way:
 
 ```html
-<script src="https://unpkg.com/hmpl-js@2.0.0/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@2.0.1/dist/hmpl.min.js"></script>
 <script>
   const templateFn = compile(
     `{ 
@@ -332,136 +332,6 @@ const elementObj = templateFn();
 
 For the loader to work, it is better to use versions `0.0.2` or higher.
 
-## Request
-
-The main thing in hmpl syntax is string interpolation. In most frameworks, such as Cample and others, string interpolation occurs using double curly braces, but since it is not convenient to do three curly braces together with a request object, a single brace was chosen. The format in which string interpolation works is as follows - `{${request}}`.
-
-> When working with request, all `script` tags are removed by the module.
-
-The main way to send a request to the server is through a request object. This object includes the properties described below in documentation.
-
-```hmpl
-{
-  {
-     "src":"/api/test"
-  }
-}
-```
-
-This object is parsed using `JSON.parse`, so for convenience you can use the `JSON.stringify` function by passing the object that needs to be inserted into the string:
-
-```javascript
-const request = JSON.stringify({
-  src: "/api/test",
-});
-
-const templateFn = compile(`{${request}}`);
-```
-
-This object is replaced with HTML that comes from the server using the `template` tag.
-
-Until the request is sent, there will be a comment in place of the request object that looks like this:
-
-```html
-<!--hmpl1-->
-```
-
-This comment is replaced with HTML that comes from the server.
-
-### src
-
-This property specifies the url to which the request will be sent. Property `src` is required.
-
-```hmpl
-{
-  {
-     "src":"http://localhost:5000/api/test"
-  }
-}
-```
-
-It is worth considering that if there is no hostname (protocol etc.) in the url, the hostname (protocol etc.) of the address from which the request is sent will be substituted.
-
-```hmpl
-{
-  {
-     "src":"/api/test"
-  }
-}
-```
-
-### method
-
-This property specifies the request method that is sent to the server. The default value is the `get` method.
-
-```hmpl
-{
-  {
-     "method":"get"
-  }
-}
-```
-
-The supported methods are `GET`, `POST`, `PUT`, `PATCH` or `DELETE`.
-
-### after
-
-The `after` property specifies after which event the request will be sent to the server. The value of the property is the string of the following construction `${event}:${selectors}`, where event is the event after which the request will be sent. and selectors are the targets to which event handlers will be assigned
-
-```hmpl
-{
-  {
-     "after":"click:.target"
-  }
-}
-```
-
-> Selectors are not looked for in the `document`, but in the template string.
-
-The HTML that comes from the server will change to a new one each time in the DOM if events are triggered.
-
-### mode
-
-This property specifies the mode of sending requests to the server and replacing HTML in the real DOM of the template. Takes two values `one` and `all`. The first value makes it so that the request to the server will be sent once, and after that all event handlers that were assigned by `selectors` will be removed and the second value, by default, sends a request every time the event is triggered. At the same time, HTML also changes once and changes constantly.
-
-```hmpl
-{
-  {
-     "mode":"one"
-  }
-}
-```
-
-### ref
-
-The `ref` property refers to the current identity settings object that was specified in the array in the compile function.
-
-```hmpl
-<div>
-  {
-    {
-      "src":"/api/test",
-      "ref":"1"
-    }
-  }
-  {
-    {
-      "src":"/api/test",
-      "ref":"2"
-    }
-  }
-</div>
-```
-
-```javascript
-const arr = [
-  { id: "1", optons: {...} },
-  { id: "2", optons: {...} },
-];
-```
-
-This link can be specified for several request objects at the same time. This can be compared to assigning a primary key in databases.
-
 ## hmpl
 
 The main object of the entire module. It includes all the properties and methods that help you work with the server.
@@ -470,7 +340,7 @@ This object does not need to be imported. It is assigned to the entire document,
 
 ### compile
 
-This function receives a string that contains a strin with hmpl syntax.
+This function receives a string that contains a string with hmpl syntax.
 
 ```javascript
 const templateFn = hmpl.compile(
@@ -621,6 +491,149 @@ const elementObj = templateFn({
 
 It is worth noting that the `requests` property is not called when the value changes, because the function is called when the values ​​in this property change only for array elements. This is a debatable thing, but it may not be necessary to call this function when a specific property of an object is called.
 
+## stringify
+
+This function accepts an object of type [HMPLRequestData](#HMPLRequestData) with request data and returns a string request object. It is based on `JSON.stringify`.
+
+```javascript
+const request = stringify({
+  src: "/api/test",
+});
+const templateFn = hmpl.compile(`{${request}}`);
+```
+
+It is based on `JSON.stringify`.
+
+## Request
+
+The main thing in hmpl syntax is string interpolation. In most frameworks, such as Cample and others, string interpolation occurs using double curly braces, but since it is not convenient to do three curly braces together with a request object, a single brace was chosen. The format in which string interpolation works is as follows - `{${request}}`.
+
+> When working with request, all `script` tags are removed by the module.
+
+The main way to send a request to the server is through a request object. This object includes the properties described below in documentation.
+
+```hmpl
+{
+  {
+     "src":"/api/test"
+  }
+}
+```
+
+This object is parsed using `JSON.parse`, so for convenience you can use the `stringify` function by passing the object that needs to be inserted into the string:
+
+```javascript
+const request = stringify({
+  src: "/api/test",
+});
+
+const templateFn = compile(`{${request}}`);
+```
+
+This object is replaced with HTML that comes from the server using the `template` tag.
+
+Until the request is sent, there will be a comment in place of the request object that looks like this:
+
+```html
+<!--hmpl1-->
+```
+
+This comment is replaced with HTML that comes from the server.
+
+### src
+
+This property specifies the url to which the request will be sent. Property `src` is required.
+
+```hmpl
+{
+  {
+     "src":"http://localhost:5000/api/test"
+  }
+}
+```
+
+It is worth considering that if there is no hostname (protocol etc.) in the url, the hostname (protocol etc.) of the address from which the request is sent will be substituted.
+
+```hmpl
+{
+  {
+     "src":"/api/test"
+  }
+}
+```
+
+### method
+
+This property specifies the request method that is sent to the server. The default value is the `get` method.
+
+```hmpl
+{
+  {
+     "method":"get"
+  }
+}
+```
+
+The supported methods are `GET`, `POST`, `PUT`, `PATCH` or `DELETE`.
+
+### after
+
+The `after` property specifies after which event the request will be sent to the server. The value of the property is the string of the following construction `${event}:${selectors}`, where event is the event after which the request will be sent. and selectors are the targets to which event handlers will be assigned
+
+```hmpl
+{
+  {
+     "after":"click:.target"
+  }
+}
+```
+
+> Selectors are not looked for in the `document`, but in the template string.
+
+The HTML that comes from the server will change to a new one each time in the DOM if events are triggered.
+
+### mode
+
+This property specifies the mode of sending requests to the server and replacing HTML in the real DOM of the template. Takes two values `one` and `all`. The first value makes it so that the request to the server will be sent once, and after that all event handlers that were assigned by `selectors` will be removed and the second value, by default, sends a request every time the event is triggered. At the same time, HTML also changes once and changes constantly.
+
+```hmpl
+{
+  {
+     "mode":"one"
+  }
+}
+```
+
+### ref
+
+The `ref` property refers to the current identity settings object that was specified in the array in the compile function.
+
+```hmpl
+<div>
+  {
+    {
+      "src":"/api/test",
+      "ref":"1"
+    }
+  }
+  {
+    {
+      "src":"/api/test",
+      "ref":"2"
+    }
+  }
+</div>
+```
+
+```javascript
+const arr = [
+  { id: "1", optons: {...} },
+  { id: "2", optons: {...} },
+];
+```
+
+This link can be specified for several request objects at the same time. This can be compared to assigning a primary key in databases.
+
 ## Types
 
 ### HMPLRequestOptions
@@ -675,6 +688,20 @@ interface HMPLRequest {
 
 ```typescript
 type HMPLRequestGet = (prop: string, value: any, request?: HMPLRequest) => void;
+```
+
+### HMPLRequestData
+
+The type for the request data object that is passed as the first argument to the `stringify` function
+
+```typescript
+interface HMPLRequestData {
+  src: string;
+  method: string;
+  ref?: string;
+  after?: string;
+  mode?: string;
+}
 ```
 
 ### HMPLHeaders
