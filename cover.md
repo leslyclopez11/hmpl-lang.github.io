@@ -11,7 +11,7 @@ const templateFn = hmpl.compile(
            "on": {
               "trigger": "loading",
               "content": "<div>Loading...</div>",
-            }
+           }
          }
       }
     </div>`
