@@ -20,6 +20,78 @@
         --cover-heading-font-size-max: 100;
         --cover-heading-font-size-min: 70;
         --small-font-size: 1.1rem;
+        /* --cover-background-color: #fff; */
+        /* --cover-heading-color: #000; */
+        /* --cover-text-align: left; */
+        /* --cover-max-width: 80em; */
+      }
+      .cover pre[data-lang] {
+        position: relative;
+        overflow: hidden;
+        margin: var(--code-block-margin);
+        padding: 0;
+        border-radius: var(--code-block-border-radius);
+      }
+      .cover .cover-main > p:last-child {
+        margin: 1.25em -0.25em;
+      }
+      .cover .cover-main > p:last-child a:first-child {
+        border: var(--cover-button-primary-border, var(--cover-button-border));
+        box-shadow: var(
+          --cover-button-primary-box-shadow,
+          var(--cover-button-box-shadow)
+        );
+        background: var(
+          --cover-button-primary-background,
+          var(--cover-button-background)
+        );
+        -webkit-text-decoration: var(
+          --cover-button-primary-text-decoration,
+          var(--cover-button-text-decoration)
+        );
+        text-decoration: var(
+          --cover-button-primary-text-decoration,
+          var(--cover-button-text-decoration)
+        );
+        -webkit-text-decoration-color: var(
+          --cover-button-primary-text-decoration-color,
+          var(--cover-button-text-decoration-color)
+        );
+        text-decoration-color: var(
+          --cover-button-primary-text-decoration-color,
+          var(--cover-button-text-decoration-color)
+        );
+        color: var(--cover-button-primary-color, var(--cover-button-color));
+      }
+      .cover code[class*="lang-"],
+      .cover pre[data-lang] {
+        font-family: var(--code-font-family);
+        font-size: var(--code-font-size);
+        font-weight: var(--code-font-weight);
+        letter-spacing: normal;
+        line-height: var(--code-block-line-height);
+        -moz-tab-size: var(--code-tab-size);
+        -o-tab-size: var(--code-tab-size);
+        tab-size: var(--code-tab-size);
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-wrap: normal;
+        word-break: normal;
+        -webkit-hyphens: none;
+        hyphens: none;
+      }
+      .cover pre[data-lang] code {
+        display: block;
+        overflow: auto;
+        padding: var(--code-block-padding);
+      }
+      .cover .cover-main {
+        width: 100%;
+        padding-top: 3em;
+      }
+      body[data-page="README.md"] main {
+        display: none;
       }
       .docsify-copy-code-button .error {
         display: none;
@@ -59,7 +131,7 @@
         .app-nav a[title="Why hmpl?"] {
           display: none;
         }
-        .app-nav li:nth-child(3) {
+        .app-nav li:nth-child(4) {
           margin: 0 !important;
         }
         section.cover blockquote p {
@@ -73,11 +145,10 @@
     <div id="app"></div>
     <script>
       window.$docsify = {
-        search: "auto",
         name: "hmpl",
         loadNavbar: true,
         logo: "/_media/logo.svg",
-        search: ["/"],
+        search: ["/docs/"],
         search: {
           maxAge: 86400000,
           paths: [],
@@ -90,6 +161,10 @@
           successText: "Copied",
         },
         coverpage: true,
+        coverpage: {
+          "/": "cover.md",
+        },
+        // routerMode: "history",
       };
     </script>
     <!-- Docsify v4 -->
