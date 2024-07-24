@@ -102,13 +102,14 @@ section.cover blockquote a:hover {
 .cover h1 small {
   margin-left: 0.2em;
 }
-.cover .cover-main > p:last-child a:first-child:hover {
+.cover .cover-main > p:nth-child(3) a:first-child:hover {
   background-color: #43a0f7;
 }
-.cover .cover-main > p:last-child a:last-child:hover {
+.cover .cover-main > p:nth-child(3) a:last-child:hover {
   border-color: #43a0f7;
   color: #43a0f7;
 }
+
 @media (max-width: 600px) {
   .app-nav ul {
     display: flex;
@@ -122,5 +123,57 @@ section.cover blockquote a:hover {
   section.cover blockquote p {
     line-height: 1.2em;
     margin: 0.5em 0 0;
+  }
+}
+
+.cover .cover-main > p:nth-child(3) a:first-child {
+  border: var(--cover-button-primary-border, var(--cover-button-border));
+  box-shadow: var(
+    --cover-button-primary-box-shadow,
+    var(--cover-button-box-shadow)
+  );
+  background: var(
+    --cover-button-primary-background,
+    var(--cover-button-background)
+  );
+  -webkit-text-decoration: var(
+    --cover-button-primary-text-decoration,
+    var(--cover-button-text-decoration)
+  );
+  text-decoration: var(
+    --cover-button-primary-text-decoration,
+    var(--cover-button-text-decoration)
+  );
+  -webkit-text-decoration-color: var(
+    --cover-button-primary-text-decoration-color,
+    var(--cover-button-text-decoration-color)
+  );
+  text-decoration-color: var(
+    --cover-button-primary-text-decoration-color,
+    var(--cover-button-text-decoration-color)
+  );
+  color: var(--cover-button-primary-color, var(--cover-button-color));
+}
+
+.cover .cover-main > p:nth-child(3) a {
+  margin: 0.375em 0.25em;
+  padding: var(--cover-button-padding);
+  border: var(--cover-button-border);
+  border-radius: var(--cover-button-border-radius);
+  box-shadow: var(--cover-button-box-shadow);
+  background: var(--cover-button-background);
+  text-align: center;
+  -webkit-text-decoration: var(--cover-button-text-decoration);
+  text-decoration: var(--cover-button-text-decoration);
+  -webkit-text-decoration-color: var(--cover-button-text-decoration-color);
+  text-decoration-color: var(--cover-button-text-decoration-color);
+  color: var(--cover-button-color);
+  white-space: nowrap;
+  transition: var(--cover-button-transition);
+}
+
+@media screen and (max-width: 768px) {
+  .cover .cover-main > p:nth-child(3) a {
+    display: block;
   }
 }
