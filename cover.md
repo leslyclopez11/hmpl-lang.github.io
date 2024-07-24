@@ -28,7 +28,7 @@
   </div>
 </div>
 
-## Example
+## Usage
 
 ```javascript
 const templateFn = hmpl.compile(
@@ -45,7 +45,13 @@ const templateFn = hmpl.compile(
     </div>`
 );
 const obj = templateFn();
-document.getElementById("wrapper").appendChild(obj.response);
+
+/**
+ * obj = {
+ *  response: div,
+ *  status: 200
+ * }
+ */
 ```
 
 ## Webpack
