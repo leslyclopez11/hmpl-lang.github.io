@@ -6,7 +6,7 @@
   --small-font-size: 1.1rem;
   --cover-background-color: #fff;
   --cover-heading-color: #000;
-  --cover-text-align: left;
+  /* --cover-text-align: left; */
   --cover-max-width: 80em;
 }
 .cover pre[data-lang] {
@@ -73,7 +73,7 @@
 }
 .cover .cover-main {
   width: 100%;
-  padding-top: 3em;
+  padding-top: 4em;
 }
 body[data-page="README.md"] main {
   display: none;
@@ -172,8 +172,31 @@ section.cover blockquote a:hover {
   transition: var(--cover-button-transition);
 }
 
+.cover .cover-main h2 {
+  margin: var(--heading-h2-margin, var(--heading-margin));
+  padding: var(--heading-h2-padding, var(--heading-padding));
+  font-family: var(--heading-h2-font-family, var(--heading-font-family));
+  font-size: var(--heading-h2-font-size);
+}
+
+.cover .cover-main p:nth-child(10) {
+  font-size: 1.5rem;
+}
+
+.cover .cover-main .features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+}
+
 @media screen and (max-width: 768px) {
   .cover .cover-main > p:nth-child(3) a {
     display: block;
+  }
+
+  .cover .cover-main .features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
   }
 }
