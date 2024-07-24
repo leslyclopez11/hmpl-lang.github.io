@@ -28,39 +28,25 @@
   </div>
 </div>
 
-## Getting started
-
-After installation using any convenient method described in [Installation](https://hmpljs.github.io/#/docs?id=installation), you can start working with the server in the following way:
-
-```html
-<script src="https://unpkg.com/hmpl-js/dist/hmpl.min.js"></script>
-<script>
-  const templateFn = compile(
-    `{ 
-       {
-         "src": "/api/test" 
-       } 
-     }`
-  );
-  const elementObj = templateFn();
-</script>
-```
-
-Or, if you need to work with hmpl as a module, there is a list of imported functions, such as `compile`:
+## Example
 
 ```javascript
-import { compile } from "hmpl-js";
-const templateFn = compile(
-  `{ 
-     {
-       "src": "/api/test" 
-     } 
-   }`
+const templateFn = hmpl.compile(
+  `<div>
+      {
+         {
+           "src": "http://localhost:8000/api/test",
+           "on": {
+              "trigger": "loading",
+              "content": "<div>Loading...</div>",
+           }
+         }
+      }
+    </div>`
 );
-const elementObj = templateFn();
+const obj = templateFn();
+document.getElementById("wrapper").appendChild(obj.response);
 ```
-
-These will be the two main ways to interact with the server. In future versions, the functionality will be expanded, but the methods themselves will not change.
 
 ## Webpack
 
@@ -72,7 +58,7 @@ Module has its own loader for files with the `.hmpl` extension. You can include 
 <div>
   {
     {
-      "src": "/api/test"
+      "src":"/api/test"
     }
   }
 </div>
