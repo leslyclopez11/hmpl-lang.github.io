@@ -1,6 +1,6 @@
 ## Introduction
 
-🌐 hmpl is a small template language for fetching HTML from API. It is based on requests sent to the server via [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and processed into ready-made HTML. The word hmpl is a combination of the old name cample-html into one word. h-html, mpl-cample.
+🌐 hmpl is a small template language for displaying UI from server to client. It is based on requests sent to the server via [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and processed into ready-made HTML. Reduce the size of your javascript files and display the same UI as if it was written in a modern framework.
 
 ### Example
 
@@ -8,7 +8,7 @@
 
 ```html
 <div id="wrapper"></div>
-<script src="https://unpkg.com/hmpl-js@2.0.2/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@2.1.2/dist/hmpl.min.js"></script>
 <script>
   const templateFn = hmpl.compile(
     `<div>
@@ -49,77 +49,6 @@
 </div>
 ```
 
-### Why hmpl?
-
-The main goal of this new template language is to simplify working with the server by integrating small request structures into HTML. This can be compared to how, in files with a php extension, you could work with the response from the server received through a php request, but at the same time work with it directly through javascript. Using the example of simply getting the title from a button, you can understand how this template language can simplify your work:
-
-```php
-<div>
-  <button id="getTitle" onclick="?">Get Title</button>
-  <h1><?php echo $title; ?></h1> <!-- if(){?} -->
-</div>
-```
-
-or
-
-```javascript
-import { compile } from "hmpl-js";
-
-const templateFn = compile(
-  `<div>
-    <button class="getTitle">Get Title!</button>
-    <h1>
-      { 
-        {
-          "src":"http://localhost:8000/api/test",
-          "after":"click:.getTitle"
-        } 
-      }
-    </h1>
-  </div>`
-);
-
-const bodyEl = document.querySelector("body");
-
-const elementObj = templateFn();
-
-bodyEl.appendChild(elementObj.response);
-```
-
-Thus, despite the fact that this approach does not imply server-side rendering, it does simplify working with HTML and the server and makes it possible to make requests out of the box safely, as well as write less code than would be done through pure javascript.
-
-Also, the main advantage of hmpl is the simplicity and flexibility of working with HTML, which comes with the API. Let's say you can simply make a loop for 1000 iterations and add everything to one DOM node at once, without doing similar code on the server side.
-
-```javascript
-import { compile } from "hmpl-js";
-
-const templateFn = compile(
-  `<div>
-     { 
-       {
-         "src":"http://localhost:8000/api/test"
-       } 
-     }
-  </div>`
-);
-
-const bodyEl = document.querySelector("body");
-
-const elementObj = templateFn({
-  get: (prop, value) => {
-    if (prop === "response") {
-      if (value) {
-        for (let i = 0; i < 1000; i++) {
-          bodyEl.appendChild(value.cloneNode(true));
-        }
-      }
-    }
-  },
-});
-```
-
-Direct access to the node allows you to interact with the DOM via js without additional `querySelector`.
-
 ### About server-side rendering
 
 Although the markup is generated on the server, the module <b>does not provide</b> functionality for displaying content to search robots. This is not expected in the future because this module is intended for other purposes.
@@ -144,13 +73,13 @@ const templateFn = compile(
       {
         "src":"/api/test",
         "after":"click:.getHTML",
-        "on": [
+        "indicators": [
            {
-             "trigger": "loading",
+             "trigger": "pending",
              "content": "<div>Loading...</div>"
            },
            {
-             "trigger": "error",
+             "trigger": "rejected",
              "content": "<div>Error</div>"
            }
         ]
@@ -179,7 +108,7 @@ import { compile, stringify } from "hmpl-js";
 
 const request2 = stringify({
   src: "/api/test",
-  ref: "2",
+  initId: 2,
 });
 
 const templateFn = compile(
@@ -187,7 +116,7 @@ const templateFn = compile(
      { 
        {
          "src":"/api/test",
-         "ref":"1"
+         "initId":"1"
        } 
      }
      {${request2}}
@@ -199,13 +128,13 @@ const wrapper = document.getElementById("wrapper");
 const obj1 = templateFn([
   {
     id: "1",
-    options: {
+    value: {
       credentials: "same-origin",
     },
   },
   {
-    id: "2",
-    options: {
+    id: 2,
+    value: {
       credentials: "omit",
     },
   },
@@ -214,13 +143,13 @@ const obj1 = templateFn([
 const obj2 = templateFn([
   {
     id: "1",
-    options: {
+    value: {
       mode: "cors",
     },
   },
   {
     id: "2",
-    options: {
+    value: {
       mode: "no-cors",
     },
   },
@@ -232,7 +161,7 @@ wrapper.appendChild(obj2.response);
 
 ### GitHub repository with examples
 
-The [repository](https://github.com/hmpljs/examples) has a list of several example projects. There you can find examples with and without webpack, as well as a test local server.
+The [repository](https://github.com/hmpl-lang/examples) has a list of several example projects. There you can find examples with and without webpack, as well as a test local server.
 
 ## Installation
 
@@ -252,13 +181,13 @@ Along the path node-modules/hmpl/dist you can find two files that contain a regu
 
 ### Manual download
 
-You can install the package by simply [downloading](https://unpkg.com/hmpl-js@2.0.2/dist/hmpl.min.js) it as a file and moving it to the project folder.
+You can install the package by simply [downloading](https://unpkg.com/hmpl-js@2.1.2/dist/hmpl.min.js) it as a file and moving it to the project folder.
 
 ```html
 <script src="./hmpl.min.js"></script>
 ```
 
-If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@2.0.2/dist/hmpl.js).
+If, for some reason, you do not need the minified file, then you can download the full file from this [link](https://unpkg.com/hmpl-js@2.1.2/dist/hmpl.js).
 
 ```html
 <script src="./hmpl.js"></script>
@@ -272,8 +201,8 @@ This method involves connecting the file through a third-party resource, which p
 
 ```html
 <script
-  src="https://unpkg.com/hmpl-js@2.0.2/dist/hmpl.min.js"
-  integrity="sha384-LcxUJPeSmyt85qFwww6OEcuksUvhepVSQ53x1aLYjubXX4KWOCHBknplxzpf5Knw"
+  src="https://unpkg.com/hmpl-js@2.1.2/dist/hmpl.min.js"
+  integrity="sha384-7d1RoURpHzeXdI9Wqpu9b98egVJxmCEeiRBSDEfQAr7/sAQBoMfmXU2cpAfJIaiq"
   crossorigin="anonymous"
 ></script>
 ```
@@ -282,10 +211,10 @@ This resource could be unpkg, skypack or other resources. The examples include u
 
 ## Getting started
 
-After installation using any convenient method described in [Installation](https://hmpljs.github.io/#/?id=installation), you can start working with the server in the following way:
+After installation using any convenient method described in [Installation](https://hmpl-lang.github.io/#/?id=installation), you can start working with the server in the following way:
 
 ```html
-<script src="https://unpkg.com/hmpl-js@2.0.2/dist/hmpl.min.js"></script>
+<script src="https://unpkg.com/hmpl-js@2.1.2/dist/hmpl.min.js"></script>
 <script>
   const templateFn = compile(
     `{ 
@@ -350,7 +279,7 @@ This object does not need to be imported. It is assigned to the entire document,
 
 ### compile
 
-This function receives a string that contains a string with hmpl syntax.
+The `compile` function takes as an argument a string, which is the syntax of extended HTML with request objects passed there (simpler, hmpl syntax).
 
 ```javascript
 const templateFn = hmpl.compile(
@@ -362,7 +291,7 @@ const templateFn = hmpl.compile(
 );
 ```
 
-This function returns a function that already creates an object with values for request. The function receives as parameters either an options object or an array of identification options.
+`compile` returns a [template function](#HMPLTemplateFunction) that takes as arguments an object of type [HMPLRequestInit](#HMPLRequestInit), which initializes a dictionary with request options, or an array of objects of type [HMPLIdentificationRequestInit](#HMPLIdentificationRequestInit), which is essentially the same dictionary, but with an `id` for binding to specific requests.
 
 ```javascript
 const elementObj = templateFn({
@@ -390,7 +319,7 @@ or
 const elementObj = templateFn([
   {
     id: "1",
-    options: {
+    value: {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -407,7 +336,7 @@ const elementObj = templateFn([
 ]);
 ```
 
-> It is worth considering that if an array is passed, then if the `ref` attribute is not specified, the request will be sent without a settings object
+> It is worth considering that if an array is passed, then if the `initId` property is not specified, the request will be sent without a options object
 
 The `id` value of each options identification object is unique. The value type is `string`
 
@@ -503,7 +432,7 @@ It is worth noting that the `requests` property is not called when the value cha
 
 ### stringify
 
-This function accepts an object of type [HMPLRequestData](#HMPLRequestData) with request data and returns a string request object. It is based on `JSON.stringify`.
+This function accepts an object of type [HMPLRequestInfo](#HMPLRequestInfo) with request data and returns a string request object. It is based on `JSON.stringify`.
 
 ```javascript
 const request = hmpl.stringify({
@@ -609,13 +538,13 @@ The `on` property determines when to show the html indicator on the request stat
 ```hmpl
 {
   {
-    "on": [
+    "indicators": [
        {
-         "trigger": "loading",
+         "trigger": "pending",
          "content": "<div>Loading...</div>"
        },
        {
-         "trigger": "error",
+         "trigger": "rejected",
          "content": "<div>Error</div>"
        }
     ]
@@ -628,17 +557,17 @@ or
 ```hmpl
 {
   {
-    "on": {
-       "trigger": "loading",
+    "indicators": {
+       "trigger": "pending",
        "content": "<div>Loading...</div>"
     }
   }
 }
 ```
 
-The `trigger` values ​​are [http codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) without successful ones (because they come from html), the lines `"loading"` and `"error"`. The content value is simple html markup.
+The `trigger` values ​​are [http codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) without successful ones (because they come from html), the lines `"pending"` and `"rejected"`. The content value is simple html markup.
 
-The indicator triggered by the `"error"` trigger is covered by codes from `400` to `599`.
+The indicator triggered by the `"rejected"` trigger is covered by codes from `400` to `599`.
 
 ### mode
 
@@ -661,13 +590,13 @@ The `ref` property refers to the current identity settings object that was speci
   {
     {
       "src":"/api/test",
-      "ref":"1"
+      "initId":"1"
     }
   }
   {
     {
       "src":"/api/test",
-      "ref":"2"
+      "initId":"2"
     }
   }
 </div>
@@ -675,8 +604,8 @@ The `ref` property refers to the current identity settings object that was speci
 
 ```javascript
 const arr = [
-  { id: "1", optons: {...} },
-  { id: "2", optons: {...} },
+  { id: "1", value: {...} },
+  { id: "2", value: {...} },
 ];
 ```
 
@@ -738,12 +667,12 @@ interface HMPLRequest {
 type HMPLRequestGet = (prop: string, value: any, request?: HMPLRequest) => void;
 ```
 
-### HMPLRequestData
+### HMPLRequestInfo
 
 The type for the request data object that is passed as the first argument to the `stringify` function
 
 ```typescript
-interface HMPLRequestData {
+interface HMPLRequestInfo {
   src: string;
   method: string;
   ref?: string;
@@ -759,8 +688,8 @@ Sets which trigger the indicator will be shown on
 
 ```typescript
 type HMPLIndicatorTrigger =
-  | "loading"
-  | "error"
+  | "pending"
+  | "rejected"
   | 100
   | 101
   | 102

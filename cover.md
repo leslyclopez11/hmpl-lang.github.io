@@ -1,6 +1,6 @@
 # hmpl.js
 
-> Template language for [fetching](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) HTML from API
+> Template language for displaying UI from server to client
 
 [Get Started](/docs#introduction)
 [Demo Sandbox](https://codesandbox.io/p/sandbox/basic-hmpl-example-dxlgfg)
@@ -28,6 +28,22 @@
   </div>
 </div>
 
+## Why hmpl?
+
+The HMPL template language extends the capabilities of regular HTML by adding query objects to the markup to reduce the code on the client. When writing SPA, a large amount of javascript code is generated, which is loaded when the user visits the site, so the loading speed can be quite slow. All this can be avoided by generating the markup on the server and then loading it on the client:
+
+```hmpl
+<div>
+  <p>
+    Clicks: {{"src":"http://localhost:8000/api/clicks",
+    "after":"click:.increment"}}
+  </p>
+  <button class="increment">Click!</button>
+</div>
+```
+
+Let's say that the same code on popular frameworks such as Vue and others takes up much more code, which, in fact, can be moved to the server.
+
 ## Usage
 
 ```javascript
@@ -36,11 +52,13 @@ const templateFn = hmpl.compile(
       {
          {
            "src": "http://localhost:8000/api/test",
-           "on": {
-              "trigger": "loading",
-              "content": "<div>Loading...</div>",
-           }
-         }
+           "indicators": [
+               {
+                 "trigger": "pending",
+                 "content": "<div>Loading...</div>",
+               }
+            ]
+        } 
       }
     </div>`
 );

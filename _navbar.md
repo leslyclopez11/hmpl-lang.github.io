@@ -1,5 +1,5 @@
 - [Docs](/docs)
-- [GitHub](https://github.com/hmpljs/hmpl)
-- [Examples](https://github.com/hmpljs/examples)
-- [Why hmpl?](/docs#why-hmpl)
+- [GitHub](https://github.com/hmpl-lang/hmpl)
+- [Examples](https://github.com/hmpl-lang/examples)
+- [Why hmpl?](#why-hmpl)
 - [![npm-version](https://img.shields.io/npm/v/hmpl-js?logo=npm&color=0183ff&style=for-the-badge)](https://www.npmjs.com/package/hmpl-js)
