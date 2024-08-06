@@ -51,7 +51,7 @@
 
 ### About server-side rendering
 
-Although the markup is generated on the server, the module <b>does not provide</b> functionality for displaying content to search robots. This is not expected in the future because this module is intended for other purposes.
+Although the markup is generated on the server, the module <b>does not yet provide</b> functionality for displaying content to search robots.
 
 ### Discussion and development of an open-source project
 
@@ -338,7 +338,7 @@ const elementObj = templateFn([
 
 > It is worth considering that if an array is passed, then if the `initId` property is not specified, the request will be sent without a options object
 
-The `id` value of each options identification object is unique. The value type is `string`
+The `id` value of each options identification object is unique. The property value is a `string` or a `number`.
 
 The function returns an object that depends on the template string to determine the number of properties. If there are 2 or more request objects in the template string, then the `requests` property is added, which has the value of an array of objects for each request object. Their properties are copied as if there was one request object in the template string.
 
@@ -432,7 +432,7 @@ It is worth noting that the `requests` property is not called when the value cha
 
 ### stringify
 
-This function accepts an object of type [HMPLRequestInfo](#HMPLRequestInfo) with request data and returns a string request object. It is based on `JSON.stringify`.
+This function accepts an object of type [HMPLRequestInfo](#HMPLRequestInfo) with request data and returns a string request object.
 
 ```javascript
 const request = hmpl.stringify({
@@ -531,9 +531,9 @@ The `after` property specifies after which event the request will be sent to the
 
 The HTML that comes from the server will change to a new one each time in the DOM if events are triggered.
 
-### on
+### indicators
 
-The `on` property determines when to show the html indicator on the request status. `XMLHttpRequest` had methods like `onerror`, `ontimeout` and others, from which the work was basically taken. The value is an object or an array of objects of type [HMPLIndicator](#HMPLIndicator).
+The indicators property is intended to determine what HTML should be shown for a particular request status. The HTML markup in indicators is not extended by the module (it is not hmpl). The value is an object or an array of objects of type [HMPLIndicator](#HMPLIndicator).
 
 ```hmpl
 {
@@ -541,45 +541,38 @@ The `on` property determines when to show the html indicator on the request stat
     "indicators": [
        {
          "trigger": "pending",
-         "content": "<div>Loading...</div>"
+         "content": "<p>Loading...</p>"
        },
        {
          "trigger": "rejected",
-         "content": "<div>Error</div>"
+         "content": "<p>Error</p><button>reload</button>"
        }
     ]
   }
 }
 ```
 
-or
+The value of the `content` property is a string containing HTML markup.
+
+The `trigger` values ​​are [http codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) without success (because they come from html), as well as values ​​based on the `rejected` and `pending` [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) states, and a generic `error` value for all errors.
+
+To avoid writing an indicator for each error, the `error` value is triggered by `rejected` errors and error codes (from 400 to 599).
+
+The values ​​of the http codes that indicate errors (from 400 to 599), as well as the value `rejected`, overlap the value `error`.
+
+### isRepeatable
+
+The `isRepeatable` property receives a boolean value. If `true`, the request will be sent every time the event is processed on the `selectors` from the `after` property, and if `false`, the request will be sent only once, and after that all event listeners will be removed.
 
 ```hmpl
 {
   {
-    "indicators": {
-       "trigger": "pending",
-       "content": "<div>Loading...</div>"
-    }
+     isRepeatable:false
   }
 }
 ```
 
-The `trigger` values ​​are [http codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) without successful ones (because they come from html), the lines `"pending"` and `"rejected"`. The content value is simple html markup.
-
-The indicator triggered by the `"rejected"` trigger is covered by codes from `400` to `599`.
-
-### mode
-
-This property specifies the mode of sending requests to the server and replacing HTML in the real DOM of the template. Takes two values `one` and `all`. The first value makes it so that the request to the server will be sent once, and after that all event handlers that were assigned by `selectors` will be removed and the second value, by default, sends a request every time the event is triggered. At the same time, HTML also changes once and changes constantly.
-
-```hmpl
-{
-  {
-     "mode":"one"
-  }
-}
-```
+By default, the value is `true`.
 
 ### ref
 
