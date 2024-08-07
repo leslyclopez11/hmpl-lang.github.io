@@ -21,7 +21,7 @@
     </p>
   </div>
   <div class="feature feature-3">
-    <span>:watch: Modernity</span>
+    <span>:watch: Supportability</span>
     <p>
       The basis of the language is <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" title="Fetch API">fetch</a> and the new ECMAScript features that come with it.
     </p>
