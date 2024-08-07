@@ -574,9 +574,9 @@ The `isRepeatable` property receives a boolean value. If `true`, the request wil
 
 By default, the value is `true`.
 
-### ref
+### initId
 
-The `ref` property refers to the current identity settings object that was specified in the array in the compile function.
+The `initId` property references the `id` of the [HMPLRequestInit](#HMPLRequestInit) dictionary and determines what initialization the request will have. The value accepts both a `number` and a `string`.
 
 ```hmpl
 <div>
@@ -589,7 +589,7 @@ The `ref` property refers to the current identity settings object that was speci
   {
     {
       "src":"/api/test",
-      "initId":"2"
+      "initId":2
     }
   }
 </div>
@@ -598,17 +598,17 @@ The `ref` property refers to the current identity settings object that was speci
 ```javascript
 const arr = [
   { id: "1", value: {...} },
-  { id: "2", value: {...} },
+  { id: 2, value: {...} },
 ];
 ```
 
-This link can be specified for several request objects at the same time. This can be compared to assigning a primary key in databases.
+One dictionary can be referenced by several requests at once. This can be compared to the implementation of keys in databases
 
 ## Types
 
-### HMPLRequestOptions
+### HMPLRequestInit
 
-Options object. Will update based on `RequestInit` type
+A set of parameters that apply to fetch. Based almost entirely on [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit).
 
 ```typescript
 interface HMPLRequestOptions {
@@ -623,7 +623,7 @@ interface HMPLRequestOptions {
   signal?: AbortSignal | null;
   window?: any;
   credentials?: RequestCredentials;
-  headers?: HMPLHeaders;
+  headers?: HMPLHeadersInit;
   timeout?: number;
 }
 ```
@@ -635,7 +635,7 @@ Return object of template function
 ```typescript
 interface HMPLInstance {
   response: undefined | Element | null;
-  status?: number;
+  status?: HMPLRequestStatus;
   requests?: HMPLRequest[];
 }
 ```
@@ -662,25 +662,25 @@ type HMPLRequestGet = (prop: string, value: any, request?: HMPLRequest) => void;
 
 ### HMPLRequestInfo
 
-The type for the request data object that is passed as the first argument to the `stringify` function
+An object that defines the properties of a request.
 
 ```typescript
 interface HMPLRequestInfo {
   src: string;
   method: string;
-  ref?: string;
+  initId?: string | number;
   after?: string;
-  mode?: string;
-  on?: HMPLIndicator | HMPLIndicator[];
+  isRepeatable?: boolean;
+  indicators?: HMPLIndicator[];
 }
 ```
 
-### HMPLIndicatorTrigger
+### HMPLInitalStatus
 
-Sets which trigger the indicator will be shown on
+Statuses based on the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) state, as well as those based on http codes without success.
 
 ```typescript
-type HMPLIndicatorTrigger =
+type HMPLInitalStatus =
   | "pending"
   | "rejected"
   | 100
@@ -738,6 +738,33 @@ type HMPLIndicatorTrigger =
   | 511;
 ```
 
+### HMPLIndicatorTrigger
+
+Sets which trigger the indicator will be shown on
+
+```typescript
+type HMPLIndicatorTrigger = HMPLInitalStatus | "error";
+```
+
+### HMPLRequestStatus
+
+Type for the full list of http codes, as well as for [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) states without `fulfilled`. Used in the [HMPLRequest](#HMPLRequest) object to indicate the status of the request.
+
+```typescript
+type HMPLRequestStatus =
+  | HMPLInitalStatus
+  | 200
+  | 201
+  | 202
+  | 203
+  | 204
+  | 205
+  | 206
+  | 207
+  | 208
+  | 226;
+```
+
 ### HMPLIndicator
 
 Inrerface for indicator object
@@ -749,24 +776,24 @@ interface HMPLIndicator {
 }
 ```
 
-### HMPLHeaders
+### HMPLHeadersInit
 
 headers object in options object
 
 ```typescript
-interface HMPLHeaders {
+interface HMPLHeadersInit {
   [key: string]: string;
 }
 ```
 
-### HMPLIdentificationOptions
+### HMPLIdentificationRequestInit
 
-Identification object of options, which is located in the array when passing it to the parameters of the template function
+Initializes a reference to a specific [HMPLRequestInit](#HMPLRequestInit) dictionary using `id`.
 
 ```typescript
-interface HMPLIdentificationOptions {
-  options: HMPLRequestOptions;
-  id: string;
+interface HMPLIdentificationRequestInit {
+  value: HMPLRequestInit;
+  id: string | number;
 }
 ```
 
@@ -783,5 +810,5 @@ Creates a template function
 The function returned in response to the `compile` function. Creates template instances.
 
 ```typescript
-(options?: HMPLIdentificationOptions[] | HMPLRequestOptions) => HMPLInstance;
+(options?: HMPLIdentificationRequestInit[] | HMPLRequestInit) => HMPLInstance;
 ```
