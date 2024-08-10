@@ -129,7 +129,10 @@ section.cover a:hover {
   .app-nav a[title="Why hmpl?"] {
     display: none;
   }
-  .app-nav li:nth-child(4) {
+  .app-nav li {
+    font-size: 0.9em;
+  }
+  .app-nav li:nth-child(5) {
     margin: 0 !important;
   }
   section.cover blockquote p {
