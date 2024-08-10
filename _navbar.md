@@ -1,6 +1,6 @@
 - [Docs](/docs)
 - [GitHub](https://github.com/hmpl-lang/hmpl)
 - [Examples](https://github.com/hmpl-lang/examples)
-- [Blog](/blog)
+- [Blog](https://hmpl-lang.github.io/blog)
 - [Why hmpl?](#why-hmpl)
 - [![npm-version](https://img.shields.io/npm/v/hmpl-js?logo=npm&color=0183ff&style=for-the-badge)](https://www.npmjs.com/package/hmpl-js)
