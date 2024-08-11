@@ -228,4 +228,8 @@ section.cover a:hover {
   .cover .cover-main {
     padding-top: 4em;
   }
+
+  .cover h2 {
+    font-size: 1.7rem !important;
+  }
 }
