@@ -812,3 +812,7 @@ The function returned in response to the `compile` function. Creates template in
 ```typescript
 (options?: HMPLIdentificationRequestInit[] | HMPLRequestInit) => HMPLInstance;
 ```
+
+## Changelog
+
+[Changelog](/changelog)
