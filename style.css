@@ -25,6 +25,11 @@
 .cover .cover-main > p:last-child {
   margin: 1.25em -0.25em;
 }
+
+.cover .docsify-copy-code-button {
+  display: none;
+}
+
 .cover .cover-main > p:last-child a:first-child {
   border: var(--cover-button-primary-border, var(--cover-button-border));
   box-shadow: var(
