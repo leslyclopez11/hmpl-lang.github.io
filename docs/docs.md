@@ -611,7 +611,7 @@ By default, the value is `false`.
 
 The memoization process itself looks like this:
 
-<img  src="./_media/memo.png" alt="memoization" >
+<img  src="/images/memo.png" alt="memoization" >
 
 Also, response memoization only works with [repeat](#repeat) enabled.
 

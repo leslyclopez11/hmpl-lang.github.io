@@ -1,32 +1,25 @@
-# hmpl.js
+---
+home: true
+title: Home
+actions:
+  - text: Get Started
+    link: /getting-started.html
+    type: primary
 
-> Template language for displaying UI from server to client
+  - text: Demo Sandbox
+    link: https://codesandbox.io/p/sandbox/basic-hmpl-example-dxlgfg
+    type: secondary
 
-[Get Started](/docs#introduction)
-[Demo Sandbox](https://codesandbox.io/p/sandbox/basic-hmpl-example-dxlgfg)
+features:
+  - title: Object as a basis
+    details: By creating one template object, you can make many DOM nodes that display server-side HTML
+  - title: Syntax
+    details: Work with server-side html directly in markup, passing only the object
+  - title: Supportability
+    details: The basis of the language is fetch and the new ECMAScript and Web APIs features that come with it
 
-## Features
-
-<div class="features">
-  <div class="feature feature-1">
-    <span>:page_facing_up: Object as a basis</span>
-    <p>
-      By creating one template object, you can make many DOM nodes that display server-side HTML
-    </p>
-  </div>
-  <div class="feature feature-2">
-    <span>:capital_abcd: Syntax</span>
-    <p>
-      Work with server-side html directly in markup, passing only the object
-    </p>
-  </div>
-  <div class="feature feature-3">
-    <span>:watch: Supportability</span>
-    <p>
-      The basis of the language is <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" title="Fetch API">fetch</a> and the new ECMAScript and Web APIs features that come with it.
-    </p>
-  </div>
-</div>
+footer: Licensed under MIT
+---
 
 ## Why hmpl?
 
@@ -117,7 +110,3 @@ const elementObj = templateFn();
 ```
 
 For the loader to work, it is better to use versions `0.0.2` or higher.
-
-<hr/>
-
-Licensed under MIT
