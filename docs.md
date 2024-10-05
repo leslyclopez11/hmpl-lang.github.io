@@ -615,6 +615,8 @@ The memoization process itself looks like this:
 
 Also, response memoization only works with [repeat](#repeat) enabled.
 
+[More about memo](https://hmpl-lang.github.io/blog/blog/2024/10/03/memoization-in-hmpl.html)
+
 ### initId
 
 The `initId` property references the `id` of the [HMPLRequestInit](#HMPLRequestInit) dictionary and determines what initialization the request will have. The value accepts both a `number` and a `string`.
