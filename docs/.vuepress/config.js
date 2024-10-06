@@ -71,6 +71,44 @@ export default defineUserConfig({
         ],
       },
       {
+        text: "Request",
+        link: "request.md",
+        children: [
+          {
+            text: "src",
+            link: "request.md#src",
+          },
+          {
+            text: "method",
+            link: "request.md#method",
+          },
+          {
+            text: "after",
+            link: "request.md#after",
+          },
+          {
+            text: "indicators",
+            link: "request.md#indicators",
+          },
+          {
+            text: "repeat",
+            link: "request.md#repeat",
+          },
+          {
+            text: "memo",
+            link: "request.md#memo",
+          },
+          {
+            text: "initId",
+            link: "request.md#initId",
+          },
+        ],
+      },
+      {
+        text: "Types",
+        link: "types.md",
+      },
+      {
         text: "Webpack",
         link: "webpack.md",
       },
@@ -103,16 +141,16 @@ export default defineUserConfig({
         link: "changelog.md",
       },
     ],
+    plugins: {
+      search: true,
+      shiki: {
+        langAlias: {
+          hmpl: "html",
+        },
+        theme: "min-light",
+      },
+    },
   }),
   head: [["link", { rel: "icon", href: "/images/favicon.ico" }]],
-  plugins: [
-    searchPlugin(),
-    shikiPlugin({
-      langAlias: {
-        hmpl: "html",
-      },
-      theme: "min-light",
-    }),
-  ],
   bundler: viteBundler(),
 });

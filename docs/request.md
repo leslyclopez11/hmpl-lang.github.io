@@ -1,4 +1,4 @@
-## Request
+# Request
 
 The main thing in hmpl syntax is string interpolation. In most frameworks, such as Cample and others, string interpolation occurs using double curly braces, but since it is not convenient to do three curly braces together with a request object, a single brace was chosen. The format in which string interpolation works is as follows - `{${request}}`.
 
@@ -34,7 +34,7 @@ Until the request is sent, there will be a comment in place of the request objec
 
 This comment is replaced with HTML that comes from the server.
 
-### src
+## src
 
 This property specifies the url to which the request will be sent. Property `src` is required.
 
@@ -56,7 +56,7 @@ It is worth considering that if there is no hostname (protocol etc.) in the url,
 }
 ```
 
-### method
+## method
 
 This property specifies the request method that is sent to the server. The default value is the `get` method.
 
@@ -70,7 +70,7 @@ This property specifies the request method that is sent to the server. The defau
 
 The supported methods are `GET`, `POST`, `PUT`, `PATCH` or `DELETE`.
 
-### after
+## after
 
 The `after` property specifies after which event the request will be sent to the server. The value of the property is the string of the following construction `${event}:${selectors}`, where event is the event after which the request will be sent. and selectors are the targets to which event handlers will be assigned
 
@@ -86,7 +86,7 @@ The `after` property specifies after which event the request will be sent to the
 
 The HTML that comes from the server will change to a new one each time in the DOM if events are triggered.
 
-### indicators
+## indicators
 
 The indicators property is intended to determine what HTML should be shown for a particular request status. The HTML markup in indicators is not extended by the module (it is not hmpl). The value is an object or an array of objects of type [HMPLIndicator](#HMPLIndicator).
 
@@ -115,7 +115,7 @@ To avoid writing an indicator for each error, the `error` value is triggered by 
 
 The values ​​of the http codes that indicate errors (from 400 to 599), as well as the value `rejected`, overlap the value `error`.
 
-### repeat
+## repeat
 
 The `repeat` property receives a boolean value. If `true`, the request will be sent every time the event is processed on the `selectors` from the `after` property, and if `false`, the request will be sent only once, and after that all event listeners will be removed.
 
@@ -129,7 +129,7 @@ The `repeat` property receives a boolean value. If `true`, the request will be s
 
 By default, the value is `true`.
 
-### memo
+## memo
 
 Enables request memoization. Allows you to optimize the application without re-rendering the DOM again. This process can be compared to `no-cache` for [`RequestСache`](https://developer.mozilla.org/en-US/docs/Web/API/Request/cache#value).
 
@@ -151,7 +151,7 @@ Also, response memoization only works with [repeat](#repeat) enabled.
 
 [More about memo](https://hmpl-lang.github.io/blog/blog/2024/10/03/memoization-in-hmpl.html)
 
-### initId
+## initId
 
 The `initId` property references the `id` of the [HMPLRequestInit](#HMPLRequestInit) dictionary and determines what initialization the request will have. The value accepts both a `number` and a `string`.
 
@@ -180,232 +180,3 @@ const arr = [
 ```
 
 One dictionary can be referenced by several requests at once. This can be compared to the implementation of keys in databases
-
-## Types
-
-### HMPLRequestInit
-
-A set of parameters that apply to fetch. Based almost entirely on [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit).
-
-```typescript
-interface HMPLRequestOptions {
-  mode?: RequestMode;
-  cache?: RequestCache;
-  redirect?: RequestRedirect;
-  referrerPolicy?: ReferrerPolicy;
-  integrity?: string;
-  referrer?: string;
-  get?: HMPLRequestGet;
-  body?: BodyInit | null;
-  signal?: AbortSignal | null;
-  window?: any;
-  credentials?: RequestCredentials;
-  headers?: HMPLHeadersInit;
-  timeout?: number;
-}
-```
-
-### HMPLInstance
-
-Return object of template function
-
-```typescript
-interface HMPLInstance {
-  response: undefined | Element | null;
-  status?: HMPLRequestStatus;
-  requests?: HMPLRequest[];
-}
-```
-
-### HMPLRequest
-
-Object in the `requests` property
-
-```typescript
-interface HMPLRequest {
-  response: undefined | Element | null | ChildNode[];
-  status: number;
-  id?: string;
-}
-```
-
-### HMPLRequestGet
-
-`get` function in options object
-
-```typescript
-type HMPLRequestGet = (prop: string, value: any, request?: HMPLRequest) => void;
-```
-
-### HMPLRequestInfo
-
-An object that defines the properties of a request.
-
-```typescript
-interface HMPLRequestInfo {
-  src: string;
-  method: string;
-  initId?: string | number;
-  after?: string;
-  repeat?: boolean;
-  memo?: boolean;
-  indicators?: HMPLIndicator[];
-}
-```
-
-### HMPLCompile
-
-Creates a template function
-
-```typescript
-type HMPLCompile = (
-  template: string,
-  options?: HMPLCompileOptions
-) => HMPLTemplateFunction;
-```
-
-### HMPLCompileOptions
-
-Sets options for the `compile` function.
-
-```typescript
-interface HMPLCompileOptions {
-  memo?: boolean;
-}
-```
-
-### HMPLTemplateFunction
-
-The function returned in response to the `compile` function. Creates template instances.
-
-```typescript
-type HMPLTemplateFunction = (
-  options?: HMPLIdentificationRequestInit[] | HMPLRequestInit
-) => HMPLInstance;
-```
-
-### HMPLInitalStatus
-
-Statuses based on the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) state, as well as those based on http codes without success.
-
-```typescript
-type HMPLInitalStatus =
-  | "pending"
-  | "rejected"
-  | 100
-  | 101
-  | 102
-  | 103
-  | 300
-  | 301
-  | 302
-  | 303
-  | 304
-  | 305
-  | 306
-  | 307
-  | 308
-  | 400
-  | 401
-  | 402
-  | 403
-  | 404
-  | 405
-  | 406
-  | 407
-  | 408
-  | 409
-  | 410
-  | 411
-  | 412
-  | 413
-  | 414
-  | 415
-  | 416
-  | 417
-  | 418
-  | 421
-  | 422
-  | 423
-  | 424
-  | 425
-  | 426
-  | 428
-  | 429
-  | 431
-  | 451
-  | 500
-  | 501
-  | 502
-  | 503
-  | 504
-  | 505
-  | 506
-  | 507
-  | 508
-  | 510
-  | 511;
-```
-
-### HMPLIndicatorTrigger
-
-Sets which trigger the indicator will be shown on
-
-```typescript
-type HMPLIndicatorTrigger = HMPLInitalStatus | "error";
-```
-
-### HMPLRequestStatus
-
-Type for the full list of http codes, as well as for [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) states without `fulfilled`. Used in the [HMPLRequest](#HMPLRequest) object to indicate the status of the request.
-
-```typescript
-type HMPLRequestStatus =
-  | HMPLInitalStatus
-  | 200
-  | 201
-  | 202
-  | 203
-  | 204
-  | 205
-  | 206
-  | 207
-  | 208
-  | 226;
-```
-
-### HMPLIndicator
-
-Inrerface for indicator object
-
-```typescript
-interface HMPLIndicator {
-  trigger: HMPLIndicatorTrigger;
-  content: string;
-}
-```
-
-### HMPLHeadersInit
-
-headers object in options object
-
-```typescript
-interface HMPLHeadersInit {
-  [key: string]: string;
-}
-```
-
-### HMPLIdentificationRequestInit
-
-Initializes a reference to a specific [HMPLRequestInit](#HMPLRequestInit) dictionary using `id`.
-
-```typescript
-interface HMPLIdentificationRequestInit {
-  value: HMPLRequestInit;
-  id: string | number;
-}
-```
-
-## Changelog
-
-[Changelog](/changelog)
