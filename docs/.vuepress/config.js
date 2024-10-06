@@ -3,7 +3,6 @@ import { viteBundler } from "@vuepress/bundler-vite";
 import { searchPlugin } from "@vuepress/plugin-search";
 import { shikiPlugin } from "@vuepress/plugin-shiki";
 import { hopeTheme } from "vuepress-theme-hope";
-import { sidebar } from "vuepress-theme-hope";
 
 export default defineUserConfig({
   lang: "en-US",
@@ -58,8 +57,46 @@ export default defineUserConfig({
         link: "getting-started.md",
       },
       {
+        text: "hmpl",
+        link: "hmpl.md",
+        children: [
+          {
+            text: "compile",
+            link: "hmpl.md#compile",
+          },
+          {
+            text: "stringify",
+            link: "hmpl.md#stringify",
+          },
+        ],
+      },
+      {
         text: "Webpack",
         link: "webpack.md",
+      },
+      {
+        text: "Examples",
+        link: "examples.md",
+      },
+      {
+        text: "About",
+        collapsible: false,
+        expanded: true,
+        path: "/about/",
+        children: [
+          {
+            text: "Discussion and development of an open-source project",
+            link: "discussion-and-development-of-an-open-source-project.md",
+          },
+          {
+            text: "GitHub repository with examples",
+            link: "github-repository-with-examples.md",
+          },
+          {
+            text: "Server-side rendering",
+            link: "server-side-rendering.md",
+          },
+        ],
       },
       {
         text: "Changelog",
