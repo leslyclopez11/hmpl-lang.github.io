@@ -3,6 +3,7 @@ import { viteBundler } from "@vuepress/bundler-vite";
 import { searchPlugin } from "@vuepress/plugin-search";
 import { shikiPlugin } from "@vuepress/plugin-shiki";
 import { hopeTheme } from "vuepress-theme-hope";
+import { sidebar } from "vuepress-theme-hope";
 
 export default defineUserConfig({
   lang: "en-US",
@@ -38,6 +39,31 @@ export default defineUserConfig({
       {
         text: "Why hmpl?",
         link: "#why-hmpl",
+      },
+    ],
+
+    iconAssets: "fontawesome-with-brands",
+
+    sidebar: [
+      {
+        text: "Introduction",
+        link: "introduction.md",
+      },
+      {
+        text: "Installation",
+        link: "installation.md",
+      },
+      {
+        text: "Getting started",
+        link: "getting-started.md",
+      },
+      {
+        text: "Webpack",
+        link: "webpack.md",
+      },
+      {
+        text: "Changelog",
+        link: "changelog.md",
       },
     ],
   }),
