@@ -1,7 +1,52 @@
-a::after {
+a::after,
+a::before {
   display: none !important;
+}
+
+* {
+  scrollbar-color: var(--vp-c-text-mute) !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--vp-c-text-mute) !important;
+}
+
+#navbar a:hover {
+  transition: 0.1s all ease-in-out;
+  -webkit-transition: 0.1s all ease-in-out;
+  -moz-transition: 0.1s all ease-in-out;
+  -ms-transition: 0.1s all ease-in-out;
+  -o-transition: 0.1s all ease-in-out;
+}
+
+#navbar a:hover {
+  color: var(--vp-c-accent) !important;
 }
 
 .vp-site-name {
   display: none;
+}
+
+.vp-project-home div,
+.vp-project-home h1,
+.vp-project-home p {
+  opacity: 1 !important;
+  transition: 0s all !important;
+  transform: unset !important;
+  -webkit-transition: 0s all !important;
+  -moz-transition: 0s all !important;
+  -ms-transition: 0s all !important;
+  -o-transition: 0s all !important;
+  -webkit-transform: unset !important;
+  -moz-transform: unset !important;
+  -ms-transform: unset !important;
+  -o-transform: unset !important;
+}
+
+.vp-hero-actions p {
+  transition: 0.25s all ease-in-out !important;
+  -webkit-transition: 0.25s all ease-in-out !important;
+  -moz-transition: 0.25s all ease-in-out !important;
+  -ms-transition: 0.25s all ease-in-out !important;
+  -o-transition: 0.25s all ease-in-out !important;
 }

@@ -1,7 +1,5 @@
 import { defineUserConfig } from "vuepress/cli";
 import { viteBundler } from "@vuepress/bundler-vite";
-import { searchPlugin } from "@vuepress/plugin-search";
-import { shikiPlugin } from "@vuepress/plugin-shiki";
 import { hopeTheme } from "vuepress-theme-hope";
 
 export default defineUserConfig({
@@ -12,7 +10,7 @@ export default defineUserConfig({
 
   theme: hopeTheme({
     logo: "/images/logo.svg",
-
+    darkmode: "disable",
     navbar: [
       // NavbarLink
       {
@@ -21,7 +19,7 @@ export default defineUserConfig({
       },
       {
         text: "Docs",
-        link: "/docs",
+        link: "introduction.md",
       },
       {
         text: "GitHub",
@@ -143,6 +141,7 @@ export default defineUserConfig({
     ],
     plugins: {
       search: true,
+      backToTop: false,
       shiki: {
         langAlias: {
           hmpl: "html",
