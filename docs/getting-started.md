@@ -1,6 +1,6 @@
 # Getting started
 
-After installation using any convenient method described in [Installation](https://hmpl-lang.github.io/#/?id=installation), you can start working with the server in the following way:
+After installation using any convenient method described in [Installation](/installation.md), you can start working with the server in the following way:
 
 ```html
 <script src="https://unpkg.com/hmpl-js@2.1.3/dist/hmpl.min.js"></script>

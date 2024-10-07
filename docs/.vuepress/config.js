@@ -118,7 +118,7 @@ export default defineUserConfig({
         text: "About",
         collapsible: false,
         expanded: true,
-        path: "/about/",
+        prefix: "/about/",
         children: [
           {
             text: "Discussion and development of an open-source project",
