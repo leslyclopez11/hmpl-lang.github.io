@@ -174,7 +174,7 @@ type HMPLIndicatorTrigger = HMPLInitalStatus | "error";
 
 ## HMPLRequestStatus
 
-Type for the full list of http codes, as well as for [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) states without `fulfilled`. Used in the [HMPLRequest](#HMPLRequest) object to indicate the status of the request.
+Type for the full list of http codes, as well as for [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) states without `fulfilled`. Used in the [HMPLRequest](#hmplrequest) object to indicate the status of the request.
 
 ```typescript
 type HMPLRequestStatus =
@@ -214,7 +214,7 @@ interface HMPLHeadersInit {
 
 ## HMPLIdentificationRequestInit
 
-Initializes a reference to a specific [HMPLRequestInit](#HMPLRequestInit) dictionary using `id`.
+Initializes a reference to a specific [HMPLRequestInit](#hmplrequestinit) dictionary using `id`.
 
 ```typescript
 interface HMPLIdentificationRequestInit {

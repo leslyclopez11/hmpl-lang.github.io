@@ -31,22 +31,17 @@ a::before {
 .vp-project-home h1,
 .vp-project-home p {
   opacity: 1 !important;
-  transition: 0s all !important;
   transform: unset !important;
-  -webkit-transition: 0s all !important;
-  -moz-transition: 0s all !important;
-  -ms-transition: 0s all !important;
-  -o-transition: 0s all !important;
-  -webkit-transform: unset !important;
-  -moz-transform: unset !important;
-  -ms-transform: unset !important;
-  -o-transform: unset !important;
 }
 
-.vp-hero-actions p {
+.vp-project-home .vp-hero-actions a {
   transition: 0.25s all ease-in-out !important;
   -webkit-transition: 0.25s all ease-in-out !important;
   -moz-transition: 0.25s all ease-in-out !important;
   -ms-transition: 0.25s all ease-in-out !important;
   -o-transition: 0.25s all ease-in-out !important;
+}
+
+.vp-project-home .vp-hero-title {
+  margin-top: 1em !important;
 }

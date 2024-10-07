@@ -88,7 +88,7 @@ The HTML that comes from the server will change to a new one each time in the DO
 
 ## indicators
 
-The indicators property is intended to determine what HTML should be shown for a particular request status. The HTML markup in indicators is not extended by the module (it is not hmpl). The value is an object or an array of objects of type [HMPLIndicator](#HMPLIndicator).
+The indicators property is intended to determine what HTML should be shown for a particular request status. The HTML markup in indicators is not extended by the module (it is not hmpl). The value is an object or an array of objects of type [HMPLIndicator](/types.md#hmplindicator).
 
 ```hmpl
 {
@@ -153,7 +153,7 @@ Also, response memoization only works with [repeat](#repeat) enabled.
 
 ## initId
 
-The `initId` property references the `id` of the [HMPLRequestInit](#HMPLRequestInit) dictionary and determines what initialization the request will have. The value accepts both a `number` and a `string`.
+The `initId` property references the `id` of the [HMPLRequestInit](/types.md#hmplrequestinit) dictionary and determines what initialization the request will have. The value accepts both a `number` and a `string`.
 
 ```hmpl
 <div>
