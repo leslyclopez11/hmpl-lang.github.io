@@ -12,10 +12,13 @@ actions:
 
 features:
   - title: Object as a basis
+    icon: file
     details: By creating one template object, you can make many DOM nodes that display server-side HTML
   - title: Syntax
+    icon: code
     details: Work with server-side html directly in markup, passing only the object
   - title: Supportability
+    icon: clock
     details: The basis of the language is fetch and the new ECMAScript and Web APIs features that come with it
 
 footer: Licensed under MIT
