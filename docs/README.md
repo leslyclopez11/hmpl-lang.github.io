@@ -50,6 +50,8 @@ const obj = templateFn();
  *  status: 200
  * }
  */
+
+wrapper.appendChild(obj.response);
 ```
 
 ## Why hmpl?
