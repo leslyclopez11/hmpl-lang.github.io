@@ -173,10 +173,11 @@ The `initId` property references the `id` of the [HMPLRequestInit](/types.md#hmp
 ```
 
 ```javascript
-const arr = [
+const requestInits = [
   { id: "1", value: {...} },
   { id: 2, value: {...} },
 ];
+const instance = templateFn(requestInits);
 ```
 
 One dictionary can be referenced by several requests at once. This can be compared to the implementation of keys in databases

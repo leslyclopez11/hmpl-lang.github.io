@@ -37,13 +37,34 @@ Specifies memoization for all request objects that match the condition described
 
 By default, the value is `false`.
 
+### autoBody
+
+Specifies a value for automatic generation of the request body for all request objects. Can be a Boolean value and an options object of type [HMPLAutoBodyOptions](/types.md#hmplautobodyoptions). Associated with [autoBody](/request.md#autoBody) for the request object.
+
+```javascript
+{
+  autoBody: true,
+}
+```
+
+or
+
+```javascript
+{
+  autoBody: {
+    formData: true;
+  }
+}
+```
+
+By default, the value is `false`.
+
 ### RequestInit
 
-`compile` returns a [template function](/types.md#hmpltemplatefunction) that takes as arguments an object of type [HMPLRequestInit](/types.md#hmplrequestinit), which initializes a dictionary with request options, or an array of objects of type [HMPLIdentificationRequestInit](/types.md#hmplidentificationrequestinit), which is essentially the same dictionary, but with an `id` for binding to specific requests.
+`compile` returns a [template function](/types.md#hmpltemplatefunction) that takes as arguments an object of type [HMPLRequestInit](/types.md#hmplrequestinit), which initializes a dictionary with request options, or an array of objects of type [HMPLIdentificationRequestInit](/types.md#hmplidentificationrequestinit), which is essentially the same dictionary, but with an `id` for binding to specific requests or the [HMPLRequestInitFunction](#requestinit-function) function.
 
 ```javascript
 const elementObj = templateFn({
-  method: "POST",
   mode: "cors",
   cache: "no-cache",
   credentials: "same-origin",
@@ -61,14 +82,13 @@ const elementObj = templateFn({
 });
 ```
 
-or
+#### Identification RequestInit
 
 ```javascript
 const elementObj = templateFn([
   {
     id: "1",
     value: {
-      method: "POST",
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
@@ -177,6 +197,33 @@ const elementObj = templateFn({
 ```
 
 It is worth noting that the `requests` property is not called when the value changes, because the function is called when the values ​​in this property change only for array elements. This is a debatable thing, but it may not be necessary to call this function when a specific property of an object is called.
+
+### RequestInit function
+
+In order to work with the [context](#context), the new version introduced the [HMPLRequestInitFunction](/types.md#hmplrequestinitfunction) function. It takes as an argument the [HMPLInstanceContext](/types.md#hmplinstancecontext) object. Returns [HMPLRequestInit](/types.md#hmplrequestinit).
+
+```javascript
+const elementObj = templateFn(({
+  request: { event }
+})=>{
+  {
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "text/html",
+      },
+      redirect: "follow",
+      get: (prop, value) => {},
+      referrerPolicy: "no-referrer",
+      body: new FormatData(event.target, event.submitter),
+    }
+});
+```
+
+Also, the function value can be used as a value for the identification RequestInit.
+
+### context
 
 ## stringify
 

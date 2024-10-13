@@ -1,6 +1,36 @@
 # Examples
 
+<!--List of test examples of work without request to api. Will also work by itself.-->
+
 ## Example 1
+
+### Result
+
+<div>
+  <button @click="switchComponent" class="getHTML">Get HTML!</button>
+  <component :is="currentComponent"></component>
+</div>
+
+<script setup>
+  import { createCommentVNode, h, ref } from 'vue'
+  let id = ref(0);
+  const els = [createCommentVNode("hmpl0"), h("div", "Loading..."), h("div", "HTML from server")];
+  const Comment = (_, ctx) => els[0];
+  const Loading = (_, ctx) => els[1];
+  const HTMLFromServer = (_, ctx) => els[2];
+    const currentComponent = ref(Comment)
+    const switchComponent = () => {
+      const isComment = currentComponent.value === Comment;
+      if(isComment){
+        currentComponent.value = Loading;
+        setTimeout(()=>{
+          currentComponent.value = HTMLFromServer;
+        }, 300);
+      }
+    }
+</script>
+
+### Code
 
 ```javascript
 import { compile } from "hmpl-js";
@@ -12,14 +42,11 @@ const templateFn = compile(
       {
         "src":"/api/test",
         "after":"click:.getHTML",
+        "repeat":false,
         "indicators": [
            {
              "trigger": "pending",
              "content": "<div>Loading...</div>"
-           },
-           {
-             "trigger": "rejected",
-             "content": "<div>Error</div>"
            }
         ]
       } 
@@ -29,71 +56,11 @@ const templateFn = compile(
 
 const wrapper = document.getElementById("wrapper");
 
-const elementObj = templateFn({
-  get: (prop, value) => {
-    if (prop === "response") {
-      if (value) {
-        wrapper.appendChild(value);
-      }
-    }
-  },
-});
+const elementObj = templateFn();
+
+wrapper.appendChild(elementObj.response);
 ```
 
-## Example 2
+## A repository of simple projects examples on hmpl
 
-```javascript
-import { compile, stringify } from "hmpl-js";
-
-const request2 = stringify({
-  src: "/api/test",
-  initId: 2,
-});
-
-const templateFn = compile(
-  `<div>
-     { 
-       {
-         "src":"/api/test",
-         "initId":"1"
-       } 
-     }
-     {${request2}}
-  </div>`
-);
-
-const wrapper = document.getElementById("wrapper");
-
-const obj1 = templateFn([
-  {
-    id: "1",
-    value: {
-      credentials: "same-origin",
-    },
-  },
-  {
-    id: 2,
-    value: {
-      credentials: "omit",
-    },
-  },
-]);
-
-const obj2 = templateFn([
-  {
-    id: "1",
-    value: {
-      mode: "cors",
-    },
-  },
-  {
-    id: "2",
-    value: {
-      mode: "no-cors",
-    },
-  },
-]);
-
-wrapper.appendChild(obj1.response);
-wrapper.appendChild(obj2.response);
-```
+[Examples](https://github.com/hmpl-lang/examples)

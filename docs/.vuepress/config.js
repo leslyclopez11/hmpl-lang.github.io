@@ -27,7 +27,7 @@ export default defineUserConfig({
       },
       {
         text: "Examples",
-        link: "https://github.com/hmpl-lang/examples",
+        link: "examples.md",
       },
       {
         text: "Blog",
