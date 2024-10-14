@@ -149,7 +149,7 @@ export default defineUserConfig({
     ],
     plugins: {
       search: true,
-      backToTop: false,
+      backToTop: true,
       shiki: {
         langAlias: {
           hmpl: "html",
@@ -157,7 +157,45 @@ export default defineUserConfig({
         theme: "min-light",
       },
     },
+    style: `
+      .back-to-top {
+        background: none;
+        border: none;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+      .back-to-top svg {
+        width: 50px; /* Adjust size as needed */
+        height: 50px; /* Adjust size as needed */
+      }
+    `, 
   }),
   head: [["link", { rel: "icon", href: "/images/favicon.ico" }]],
   bundler: viteBundler(),
+  enhanceAppFiles: [
+    {
+      name: "custom-back-to-top",
+      content: `
+        import { defineComponent } from 'vue';
+        export default defineComponent({
+          setup() {
+            const scrollToTop = () => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            return { scrollToTop };
+          },
+          template: \`
+            <button class="back-to-top" @click="scrollToTop">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2l-10 10h6v10h8v-10h6z" fill="currentColor" />
+              </svg>
+            </button>
+          \`
+        });
+      `,
+    },
+  ],
 });
