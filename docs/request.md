@@ -151,6 +151,65 @@ Also, response memoization only works with [repeat](#repeat) enabled.
 
 [More about memo](https://hmpl-lang.github.io/blog/blog/2024/10/03/memoization-in-hmpl.html)
 
+## autoBody
+
+Specifies automatic generation for the body property in [HMPLRequestInit](/types.md#hmplrequestinit). Takes a Boolean value or an [HMPLAutoBodyOptions](/types.md#hmplautobodyoptions) object.
+
+```hmpl
+<div>
+  <form onsubmit="function prevent(e){e.preventDefault();};return prevent(event);" id="form">
+    <div class="form-example">
+      <label for="name">Enter your email: </label>
+      <input type="text" name="email" id="email" required />
+    </div>
+    <div class="form-example">
+      <input type="submit" value="Subscribe!" />
+    </div>
+  </form>
+  {
+    {
+      "src":"/api/subscribe",
+      "after":"submit:#form",
+      "autoBody":true
+    }
+  }
+</div>
+```
+
+```javascript
+const elementObj = templateFn({
+  // body: new FormData(event.target, event.submitter)
+});
+```
+
+If this value is enabled, it overwrites the old body value, but only if [HMPLRequestInit](/types.md#hmplrequestinit) is not obtained from the [RequestInit function](/hmpl.md#requestinit-function).
+
+If `true`, the property value will be the following object:
+
+```javascript
+{
+  formData: true,
+}
+```
+
+If `false`, the property value will be the following object:
+
+```javascript
+{
+  formData: false,
+}
+```
+
+For now, automatic generation is supported only for `FormData` in forms, but future versions are also expected to implement functionality for `input`, `progress` and other tags where generation is useful.
+
+The `FormData` generation function looks like this:
+
+```javascript
+const body = new FormData(event.target, event.submitter);
+```
+
+It is worth considering that automatic generation will only work for the `form` tag and the [SubmitEvent](https://developer.mozilla.org/en-US/docs/Web/API/SubmitEvent) type event.
+
 ## initId
 
 The `initId` property references the `id` of the [HMPLRequestInit](/types.md#hmplrequestinit) dictionary and determines what initialization the request will have. The value accepts both a `number` and a `string`.
