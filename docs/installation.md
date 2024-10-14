@@ -37,7 +37,7 @@ This method involves connecting the file through a third-party resource, which p
 ```html
 <script
   src="https://unpkg.com/hmpl-js@2.1.4/dist/hmpl.min.js"
-  integrity="sha384-05LXn7xKeL/xlEh/bAHRwGVMn8r737zArv0K0rJssBAyCKDlQUvwDUPO14d3Khmf"
+  integrity="sha384-NwTUGW5ekL/zLRABi6pq48tjo+SenzhNi8+VRPrqv7v0EWtCBDSRj1YNYg80m/ZP"
   crossorigin="anonymous"
 ></script>
 ```
