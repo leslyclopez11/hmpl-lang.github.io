@@ -21,6 +21,6 @@
     "vuepress-theme-hope": "^2.0.0-rc.58"
   },
   "dependencies": {
-    "hmpl-js": "latest"
+    "hmpl-js": "^2.1.4"
   }
 }
