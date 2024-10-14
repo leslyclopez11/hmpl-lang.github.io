@@ -17,6 +17,9 @@ const templateFn = hmpl.compile(
    }`,
   {
     memo: true,
+    autoBody: {
+      formData: true,
+    },
   }
 );
 ```
@@ -37,13 +40,34 @@ Specifies memoization for all request objects that match the condition described
 
 By default, the value is `false`.
 
+### autoBody
+
+Specifies a value for automatic generation of the request body for all request objects. Can be a Boolean value and an options object of type [HMPLAutoBodyOptions](/types.md#hmplautobodyoptions). Associated with [autoBody](/request.md#autobody) for the request object.
+
+```javascript
+{
+  autoBody: true,
+}
+```
+
+or
+
+```javascript
+{
+  autoBody: {
+    formData: true;
+  }
+}
+```
+
+By default, the value is `false`.
+
 ### RequestInit
 
-`compile` returns a [template function](/types.md#hmpltemplatefunction) that takes as arguments an object of type [HMPLRequestInit](/types.md#hmplrequestinit), which initializes a dictionary with request options, or an array of objects of type [HMPLIdentificationRequestInit](/types.md#hmplidentificationrequestinit), which is essentially the same dictionary, but with an `id` for binding to specific requests.
+`compile` returns a [template function](/types.md#hmpltemplatefunction) that takes as arguments an object of type [HMPLRequestInit](/types.md#hmplrequestinit), which initializes a dictionary with request options, or an array of objects of type [HMPLIdentificationRequestInit](/types.md#hmplidentificationrequestinit), which is essentially the same dictionary, but with an `id` for binding to specific requests or the [HMPLRequestInitFunction](#requestinit-function) function.
 
 ```javascript
 const elementObj = templateFn({
-  method: "POST",
   mode: "cors",
   cache: "no-cache",
   credentials: "same-origin",
@@ -61,14 +85,13 @@ const elementObj = templateFn({
 });
 ```
 
-or
+### Identification RequestInit
 
 ```javascript
 const elementObj = templateFn([
   {
     id: "1",
     value: {
-      method: "POST",
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
@@ -178,6 +201,31 @@ const elementObj = templateFn({
 
 It is worth noting that the `requests` property is not called when the value changes, because the function is called when the values ​​in this property change only for array elements. This is a debatable thing, but it may not be necessary to call this function when a specific property of an object is called.
 
+### RequestInit function
+
+In order to work with the [context](#concept-of-context), the new version introduced the [HMPLRequestInitFunction](/types.md#hmplrequestinitfunction) function. It takes as an argument the [HMPLInstanceContext](/types.md#hmplinstancecontext) object. Returns [HMPLRequestInit](/types.md#hmplrequestinit).
+
+```javascript
+const elementObj = templateFn(({
+  request: { event }
+})=>{
+  {
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "text/html",
+      },
+      redirect: "follow",
+      get: (prop, value) => {},
+      referrerPolicy: "no-referrer",
+      body: new FormatData(event.target, event.submitter),
+    }
+});
+```
+
+Also, the function value can be used as a `value` for the identification RequestInit.
+
 ## stringify
 
 This function accepts an object of type [HMPLRequestInfo](/types.md#hmplrequestinfo) with request data and returns a string request object.
@@ -190,3 +238,37 @@ const templateFn = hmpl.compile(`{${request}}`);
 ```
 
 It is based on `JSON.stringify`.
+
+## Concept of context
+
+In hmpl, the concept of context is introduced for transferring data in instances. In itself, it represents a certain environment with data from which you can get, but not yet write, a value.
+
+So far, one context has been introduced - this is the instance context. Its type is [HMPLInstanceContext](/types.md#hmplinstancecontext). It includes the request context [HMPLRequestContext](/types.md#hmplrequestcontext), which is generated when sending a request to the server.
+
+```hmpl
+<div>
+  <button id="getHTML">Get HTML!</button>
+  {{ "src":"/api/getHTML", method:"POST", after:"click:#getHTML" }}
+</div>
+```
+
+```javascript
+/**
+ * ctx = {
+ *   request: {
+ *     event: PointerEvent,
+ *   },
+ * };
+ */
+
+const initFn = (ctx) => {
+  const event = ctx.request.event;
+  const text = event.target.textContent;
+  return {
+    body: text,
+  };
+};
+const elementObj = templateFn(initFn);
+```
+
+In this example, thanks to the context, we get an event that is triggered when the `button` is clicked. This is a very useful feature, because for things like `FormData`, or `value` for `input`, you can now generate a custom [HMPLRequestInit](/types.md#hmplrequestinit).

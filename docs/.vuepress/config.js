@@ -27,7 +27,7 @@ export default defineUserConfig({
       },
       {
         text: "Examples",
-        link: "https://github.com/hmpl-lang/examples",
+        link: "examples.md",
       },
       {
         text: "Blog",
@@ -66,6 +66,10 @@ export default defineUserConfig({
             text: "stringify",
             link: "hmpl.md#stringify",
           },
+          {
+            text: "Concept of context",
+            link: "hmpl.md#concept-of-context",
+          },
         ],
       },
       {
@@ -97,8 +101,12 @@ export default defineUserConfig({
             link: "request.md#memo",
           },
           {
+            text: "autoBody",
+            link: "request.md#autobody",
+          },
+          {
             text: "initId",
-            link: "request.md#initId",
+            link: "request.md#initid",
           },
         ],
       },

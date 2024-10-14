@@ -34,6 +34,16 @@ interface HMPLInstance {
 }
 ```
 
+## HMPLInstanceContext
+
+The [HMPLInstance](#hmplinstance) context contains information about requests sent to the server.
+
+```typescript
+interface HMPLInstanceContext {
+  request: HMPLRequestContext;
+}
+```
+
 ## HMPLRequest
 
 Object in the `requests` property
@@ -43,6 +53,16 @@ interface HMPLRequest {
   response: undefined | Element | null | ChildNode[];
   status: number;
   id?: string;
+}
+```
+
+## HMPLRequestContext
+
+The context of the current request sent to the [HMPLInstance](#hmplinstance).
+
+```typescript
+interface HMPLRequestContext {
+  event?: Event;
 }
 ```
 
@@ -66,6 +86,7 @@ interface HMPLRequestInfo {
   after?: string;
   repeat?: boolean;
   memo?: boolean;
+  autoBody?: boolean | HMPLAutoBodyOptions;
   indicators?: HMPLIndicator[];
 }
 ```
@@ -88,6 +109,7 @@ Sets options for the `compile` function.
 ```typescript
 interface HMPLCompileOptions {
   memo?: boolean;
+  autoBody?: boolean | HMPLAutoBodyOptions;
 }
 ```
 
@@ -97,8 +119,21 @@ The function returned in response to the `compile` function. Creates template in
 
 ```typescript
 type HMPLTemplateFunction = (
-  options?: HMPLIdentificationRequestInit[] | HMPLRequestInit
+  options?:
+    | HMPLIdentificationRequestInit[]
+    | HMPLRequestInit
+    | HMPLRequestInitFunction
 ) => HMPLInstance;
+```
+
+## HMPLAutoBodyOptions
+
+List of options for the [autoBody](/request.md#autobody) property.
+
+```typescript
+interface HMPLAutoBodyOptions {
+  formData?: boolean;
+}
 ```
 
 ## HMPLInitalStatus
@@ -218,7 +253,17 @@ Initializes a reference to a specific [HMPLRequestInit](#hmplrequestinit) dictio
 
 ```typescript
 interface HMPLIdentificationRequestInit {
-  value: HMPLRequestInit;
+  value: HMPLRequestInit | HMPLRequestInitFunction;
   id: string | number;
 }
+```
+
+## HMPLRequestInitFunction
+
+[HMPLRequestInit](#hmplrequestinit) generation function. Needed to work with [context](/hmpl.md#concept-of-context).
+
+```typescript
+type HMPLRequestInitFunction = (
+  context: HMPLInstanceContext
+) => HMPLRequestInit;
 ```
