@@ -149,7 +149,6 @@ export default defineUserConfig({
     ],
     plugins: {
       search: true,
-      backToTop: false,
       shiki: {
         langAlias: {
           hmpl: "html",
@@ -160,4 +159,8 @@ export default defineUserConfig({
   }),
   head: [["link", { rel: "icon", href: "/images/favicon.ico" }]],
   bundler: viteBundler(),
+  themeConfig: {
+    themePlugins: {
+      backToTop: true
+    }},
 });
