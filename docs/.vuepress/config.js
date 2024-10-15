@@ -149,7 +149,6 @@ export default defineUserConfig({
     ],
     plugins: {
       search: true,
-      backToTop: true,
       shiki: {
         langAlias: {
           hmpl: "html",
@@ -175,27 +174,8 @@ export default defineUserConfig({
   }),
   head: [["link", { rel: "icon", href: "/images/favicon.ico" }]],
   bundler: viteBundler(),
-  enhanceAppFiles: [
-    {
-      name: "custom-back-to-top",
-      content: `
-        import { defineComponent } from 'vue';
-        export default defineComponent({
-          setup() {
-            const scrollToTop = () => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
-            return { scrollToTop };
-          },
-          template: \`
-            <button class="back-to-top" @click="scrollToTop">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l-10 10h6v10h8v-10h6z" fill="currentColor" />
-              </svg>
-            </button>
-          \`
-        });
-      `,
-    },
-  ],
+  themeConfig: {
+    themePlugins: {
+      backToTop: true
+    }},
 });
